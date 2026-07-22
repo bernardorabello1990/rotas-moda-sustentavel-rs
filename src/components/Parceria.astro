@@ -3,7 +3,7 @@ import { site } from '../data/site.ts';
 const assunto = encodeURIComponent('Parceria — Rotas da Moda Sustentável RS');
 ---
 <section id="contato" class="secao parceria">
-  <div class="container parceria__grade">
+  <div class="container parceria__grade revelar">
     <div>
       <span class="tag">Seja parceiro</span>
       <h2 class="titulo-secao">Vamos tecer essa rota <em>juntos?</em></h2>
@@ -48,8 +48,9 @@ const assunto = encodeURIComponent('Parceria — Rotas da Moda Sustentável RS')
 
   .parceria__mailto {
     background: color-mix(in srgb, var(--cor-texto) 25%, var(--cor-acao));
+    border: 1.5px dashed color-mix(in srgb, var(--cor-fundo) 45%, transparent);
     border-radius: 14px;
-    padding: 2.2rem;
+    padding: 2.4rem 2.2rem;
     text-align: center;
   }
   .parceria__rotulo {

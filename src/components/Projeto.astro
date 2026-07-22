@@ -2,7 +2,7 @@
 import { site } from '../data/site.ts';
 ---
 <section id="o-projeto" class="secao">
-  <div class="container projeto">
+  <div class="container projeto revelar">
     <div class="projeto__cabeca">
       <span class="tag">O Projeto</span>
       <h2 class="titulo-secao">A moda como campo cultural — <em>enfim no mapa</em></h2>
@@ -35,9 +35,10 @@ import { site } from '../data/site.ts';
   .projeto__texto p { color: var(--cor-texto-2); }
   .projeto__texto strong { color: var(--cor-texto); }
   .projeto__edital {
-    border-left: 3px solid var(--cor-acento);
+    border-left: 2px dashed var(--cor-acento);
     padding-left: 1rem;
     font-size: 0.9rem;
+    color: var(--cor-texto-2);
     margin-top: 1.5rem;
   }
 </style>

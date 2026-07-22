@@ -13,7 +13,7 @@ const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da M
     <h2 class="titulo-secao">As vozes dos territórios</h2>
 
     {lista.length === 0 ? (
-      <div class="podcast__embreve">
+      <div class="podcast__embreve revelar">
         <p class="podcast__chamada">
           As entrevistas da pesquisa darão origem a um podcast autoral — um episódio dedicado a cada
           região, com os próprios agentes territoriais como protagonistas.
@@ -65,10 +65,10 @@ const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da M
     display: flex;
     align-items: baseline;
     gap: 1rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--cor-fundo) 18%, transparent);
-    padding-bottom: 0.6rem;
+    border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-fundo) 26%, transparent);
+    padding-bottom: 0.7rem;
     font-family: var(--fonte-titulo);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   .podcast__num {
     font-family: var(--fonte-texto);

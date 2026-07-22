@@ -13,7 +13,7 @@ const passos = [
     <h2 class="titulo-secao">Uma jornada de escuta em cinco movimentos</h2>
     <ol class="metodologia__lista">
       {passos.map((p, i) => (
-        <li class="metodologia__passo">
+        <li class="metodologia__passo revelar">
           <span class="metodologia__numero">{i + 1}</span>
           <h3>{p.titulo}</h3>
           <p>{p.texto}</p>
@@ -37,10 +37,13 @@ const passos = [
   @media (min-width: 1000px) { .metodologia__lista { grid-template-columns: repeat(5, 1fr); } }
   .metodologia__numero {
     font-family: var(--fonte-titulo);
-    font-size: 2rem;
+    font-style: italic;
+    font-size: 2.1rem;
     color: var(--cor-acao);
-    display: block;
-    margin-bottom: 0.3rem;
+    display: inline-block;
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-acao) 55%, transparent);
   }
   .metodologia__passo h3 { font-size: 1.25rem; }
   .metodologia__passo p { font-size: 0.92rem; color: var(--cor-texto-2); margin: 0; }

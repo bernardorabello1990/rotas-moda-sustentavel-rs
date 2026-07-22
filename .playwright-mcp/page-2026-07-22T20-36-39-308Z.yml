@@ -1,0 +1,178 @@
+- generic [active] [ref=e1]:
+  - link "Pular para o conteúdo" [ref=e2] [cursor=pointer]:
+    - /url: "#conteudo"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link [ref=e5] [cursor=pointer]:
+        - /url: "#conteudo"
+        - text: Rotas da Moda
+        - emphasis [ref=e6]: Sustentável RS
+      - navigation "Navegação principal" [ref=e7]:
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - link "O Projeto" [ref=e10] [cursor=pointer]:
+              - /url: "#o-projeto"
+          - listitem [ref=e11]:
+            - link "Regiões" [ref=e12] [cursor=pointer]:
+              - /url: "#regioes"
+          - listitem [ref=e13]:
+            - link "Podcast" [ref=e14] [cursor=pointer]:
+              - /url: "#podcast"
+          - listitem [ref=e15]:
+            - link "Equipe" [ref=e16] [cursor=pointer]:
+              - /url: "#equipe"
+          - listitem [ref=e17]:
+            - link "Contato" [ref=e18] [cursor=pointer]:
+              - /url: "#contato"
+  - main [ref=e19]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: Pesquisa cultural · Rio Grande do Sul
+        - heading [level=1] [ref=e24]:
+          - text: Os caminhos da modasustentável no
+          - emphasis [ref=e25]: RS
+        - paragraph [ref=e26]: Mapeamento cultural das vocações territoriais da moda sustentável no Rio Grande do Sul — dos fios de lã da Campanha ao carnaval de Porto Alegre.
+        - generic [ref=e27]:
+          - link "Seja parceiro" [ref=e28] [cursor=pointer]:
+            - /url: "#contato"
+          - link "Conheça o projeto" [ref=e29] [cursor=pointer]:
+            - /url: "#o-projeto"
+      - 'img "Mapa bordado do Rio Grande do Sul destacando as quatro regiões da pesquisa: Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre" [ref=e31]':
+        - generic [ref=e52]: Serra Gaúcha
+        - generic [ref=e55]: Campanha
+        - generic [ref=e58]: Vale dos Sinos
+        - generic [ref=e61]: Porto Alegre
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]: O Projeto
+        - heading [level=2] [ref=e68]:
+          - text: A moda como campo cultural —
+          - emphasis [ref=e69]: enfim no mapa
+      - generic [ref=e70]:
+        - paragraph [ref=e71]:
+          - text: A moda raramente é tratada como campo cultural estruturado nas políticas públicas — apesar de sua relação profunda com identidade, território, memória, festas e saberes tradicionais. O
+          - strong [ref=e72]: Rotas da Moda Sustentável RS
+          - text: nasce para preencher essa lacuna.
+        - paragraph [ref=e73]: "O projeto realiza uma pesquisa cultural aplicada que mapeia e sistematiza as vocações territoriais da moda sustentável no Rio Grande do Sul, ouvindo quem faz: designers, artesãos, coletivos, cooperativas, carnavalescos, pequenas indústrias, pesquisadores e agentes culturais."
+        - paragraph [ref=e74]: O resultado será um diagnóstico cultural inédito e uma base pública de dados — contribuindo para o planejamento e o fortalecimento das políticas culturais e das indústrias criativas do estado.
+        - paragraph [ref=e75]: Projeto contemplado em edital público de fomento à cultura.
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - generic [ref=e80]: As Rotas
+          - heading "Quatro territórios, quatro vocações" [level=2] [ref=e81]
+          - paragraph [ref=e82]: Cada região do estado teceu, ao longo do tempo, uma relação própria entre moda, cultura e sustentabilidade. São essas vocações que a pesquisa percorre.
+        - 'img "Mapa bordado do Rio Grande do Sul destacando as quatro regiões da pesquisa: Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre" [ref=e84]'
+      - generic [ref=e105]:
+        - article [ref=e106]:
+          - generic [ref=e108]:
+            - heading "Serra Gaúcha" [level=3] [ref=e109]
+            - paragraph [ref=e110]: Vestuário, moda festa e noivas
+            - paragraph [ref=e111]: Tradição consolidada na indústria do vestuário, com forte presença da moda festa e do universo das noivas. Um polo onde o saber técnico das confecções encontra novas práticas de responsabilidade.
+        - article [ref=e112]:
+          - generic [ref=e114]:
+            - heading "Região da Campanha" [level=3] [ref=e115]
+            - paragraph [ref=e116]: Lã, ovinocultura e tinturaria natural
+            - paragraph [ref=e117]: Na fronteira sul, a cadeia da lã e a ovinocultura sustentam ofícios históricos, enquanto a tinturaria natural conecta a moda ao pampa, suas plantas e seus pigmentos.
+        - article [ref=e118]:
+          - generic [ref=e120]:
+            - heading "Vale dos Sinos" [level=3] [ref=e121]
+            - paragraph [ref=e122]: Indústria e inovação social
+            - paragraph [ref=e123]: Histórico industrial relevante — especialmente no calçado — e um ecossistema emergente de iniciativas de inovação e responsabilidade social que reinventa o território produtivo.
+        - article [ref=e124]:
+          - generic [ref=e126]:
+            - heading "Região Metropolitana de Porto Alegre" [level=3] [ref=e127]
+            - paragraph [ref=e128]: Upcycling, economia circular e carnaval
+            - paragraph [ref=e129]: Onde se consolidam práticas de upcycling, economia circular e reaproveitamento têxtil — e onde o carnaval transforma a reutilização criativa de materiais em expressão cultural viva.
+    - generic [ref=e131]:
+      - generic [ref=e132]: Metodologia
+      - heading "Uma jornada de escuta em cinco movimentos" [level=2] [ref=e133]
+      - list [ref=e134]:
+        - listitem [ref=e135]:
+          - generic [ref=e136]: "1"
+          - heading "Exploração" [level=3] [ref=e137]
+          - paragraph [ref=e138]: Levantamento documental e análise de estudos, políticas públicas e mapeamentos já existentes.
+        - listitem [ref=e139]:
+          - generic [ref=e140]: "2"
+          - heading "Mapeamento" [level=3] [ref=e141]
+          - paragraph [ref=e142]: Identificação de agentes, vocações e práticas da moda sustentável em cada território.
+        - listitem [ref=e143]:
+          - generic [ref=e144]: "3"
+          - heading "Escuta em campo" [level=3] [ref=e145]
+          - paragraph [ref=e146]: Entrevistas em profundidade e escutas sensíveis, com registro em áudio e fotografia dos processos.
+        - listitem [ref=e147]:
+          - generic [ref=e148]: "4"
+          - heading "Análise" [level=3] [ref=e149]
+          - paragraph [ref=e150]: Consolidação dos dados em um relatório técnico-cultural com recomendações estratégicas.
+        - listitem [ref=e151]:
+          - generic [ref=e152]: "5"
+          - heading "Devolução pública" [level=3] [ref=e153]
+          - paragraph [ref=e154]: Podcast, plataforma de mapeamento e evento de lançamento em Porto Alegre.
+    - generic [ref=e156]:
+      - generic [ref=e157]: Podcast
+      - heading "As vozes dos territórios" [level=2] [ref=e158]
+      - generic [ref=e159]:
+        - paragraph [ref=e160]: As entrevistas da pesquisa darão origem a um podcast autoral — um episódio dedicado a cada região, com os próprios agentes territoriais como protagonistas.
+        - list [ref=e161]:
+          - listitem [ref=e162]:
+            - generic [ref=e163]: EP 1
+            - generic [ref=e164]: Serra Gaúcha
+            - generic [ref=e165]: em breve
+          - listitem [ref=e166]:
+            - generic [ref=e167]: EP 2
+            - generic [ref=e168]: Região da Campanha
+            - generic [ref=e169]: em breve
+          - listitem [ref=e170]:
+            - generic [ref=e171]: EP 3
+            - generic [ref=e172]: Vale dos Sinos
+            - generic [ref=e173]: em breve
+          - listitem [ref=e174]:
+            - generic [ref=e175]: EP 4
+            - generic [ref=e176]: Região Metropolitana de Porto Alegre
+            - generic [ref=e177]: em breve
+        - link "Quero ser avisado da estreia" [ref=e178] [cursor=pointer]:
+          - /url: mailto:contato@rotasdamodars.com.br?subject=Quero%20ser%20avisado%20sobre%20o%20podcast%20Rotas%20da%20Moda%20Sustent%C3%A1vel%20RS
+    - generic [ref=e180]:
+      - generic [ref=e181]: Equipe
+      - heading "Três trajetórias, um propósito" [level=2] [ref=e182]
+      - generic [ref=e183]:
+        - article [ref=e184]:
+          - img "Retrato de Dafne Panatieri" [ref=e185]
+          - heading "Dafne Panatieri" [level=3] [ref=e186]
+          - paragraph [ref=e187]: Pesquisa e estratégia em economia criativa
+          - paragraph [ref=e188]: Pesquisadora e estrategista na interface entre moda, cultura, sustentabilidade e impacto social. Administradora pela FGV, especialista em Negócios da Moda pela USP e em Diversidade e Inclusão, mestranda em Comunicação pela PUCRS. Experiência em pesquisa aplicada, projetos culturais, curadoria e articulação de parcerias no setor da moda.
+        - article [ref=e189]:
+          - img "Retrato de Laura Madalosso" [ref=e190]
+          - heading "Laura Madalosso" [level=3] [ref=e191]
+          - paragraph [ref=e192]: Consultoria em moda e sustentabilidade
+          - paragraph [ref=e193]: Consultora, pesquisadora e estrategista dedicada à transição da moda para modelos circulares, justos e regenerativos. Publicitária pela UFRGS, pós-graduada em Design de Moda (Unisinos) e especialista em Sustentabilidade (UNESC), com mais de 15 anos de indústria. Sócia-fundadora da Cora Design, consultoria estratégica e Empresa B Certificada.
+          - paragraph [ref=e194]:
+            - link "Cora Design" [ref=e195] [cursor=pointer]:
+              - /url: https://coradesign.co/
+        - article [ref=e196]:
+          - img "Retrato de Alice Castiel" [ref=e197]
+          - heading "Alice Castiel" [level=3] [ref=e198]
+          - paragraph [ref=e199]: Produção cultural e artística
+          - paragraph [ref=e200]: Produtora cultural, artística e pesquisadora musical, graduada em Cinema pela PUCRS e mestranda em Design Estratégico pela Unisinos. Idealizou o projeto Concha, premiado pelo Edital Natura Musical, e produziu projetos como Ialodê (Lei Aldir Blanc) e IGBA AWÓ (Itaú Rumos). Vivência em metodologias ágeis e gestão de projetos e produtos digitais.
+    - generic [ref=e202]:
+      - generic [ref=e203]:
+        - generic [ref=e204]: Seja parceiro
+        - heading [level=2] [ref=e205]:
+          - text: Vamos tecer essa rota
+          - emphasis [ref=e206]: juntos?
+        - paragraph [ref=e207]: O Rotas da Moda Sustentável RS está construindo a primeira base pública sobre a moda sustentável gaúcha — e busca parceiros institucionais, apoiadores e veículos de imprensa para ampliar o alcance e o impacto desta pesquisa.
+        - paragraph [ref=e208]: Se você representa o poder público, uma organização, uma marca ou a imprensa, escreva para nós.
+      - generic [ref=e210]:
+        - paragraph [ref=e211]: Fale com a equipe
+        - link "contato@rotasdamodars.com.br" [ref=e212] [cursor=pointer]:
+          - /url: mailto:contato@rotasdamodars.com.br?subject=Parceria%20%E2%80%94%20Rotas%20da%20Moda%20Sustent%C3%A1vel%20RS
+        - link "Escrever agora" [ref=e213] [cursor=pointer]:
+          - /url: mailto:contato@rotasdamodars.com.br?subject=Parceria%20%E2%80%94%20Rotas%20da%20Moda%20Sustent%C3%A1vel%20RS
+        - paragraph [ref=e214]: Prefere só acompanhar? Peça neste mesmo e-mail para entrar na lista de novidades.
+  - contentinfo [ref=e215]:
+    - generic [ref=e216]:
+      - paragraph [ref=e217]: Projeto contemplado em edital público de fomento à cultura.
+      - generic [ref=e218]:
+        - generic [ref=e219]: © 2026 Rotas da Moda Sustentável RS
+        - link "contato@rotasdamodars.com.br" [ref=e221] [cursor=pointer]:
+          - /url: mailto:contato@rotasdamodars.com.br

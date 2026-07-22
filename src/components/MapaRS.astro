@@ -1,59 +1,222 @@
 ---
 import regioes from '../data/regioes.json';
+import mapa from '../data/mapa-rs.json';
 
-interface Props { rotulos?: boolean }
-const { rotulos = true } = Astro.props;
+interface Props { rotulos?: boolean; fio?: boolean }
+const { rotulos = true, fio = true } = Astro.props;
 
-// Posições dos marcadores no viewBox 0 0 200 160 (mapa estilizado, não cartográfico)
-const COORDENADAS: Record<string, { x: number; y: number; dx: number; dy: number }> = {
-  serra: { x: 128, y: 48, dx: 0, dy: -13 },
-  campanha: { x: 58, y: 98, dx: 0, dy: 20 },
-  sinos: { x: 130, y: 76, dx: 32, dy: -8 },
-  metropolitana: { x: 146, y: 104, dx: 8, dy: 19 },
-};
-const ROTULOS_CURTOS: Record<string, string> = {
+const cor: Record<string, string> = Object.fromEntries(regioes.map((r) => [r.id, r.cor]));
+const m = mapa.marcadores as Record<string, [number, number]>;
+
+const ROTULOS: Record<string, string> = {
   serra: 'Serra Gaúcha',
   campanha: 'Campanha',
   sinos: 'Vale dos Sinos',
   metropolitana: 'Porto Alegre',
 };
+const GUIA: Record<string, { lx: number; ly: number; anchor: 'end' | 'middle'; tx: number; ty: number }> = {
+  serra: { lx: 690, ly: 262, anchor: 'end', tx: 676, ty: 266 },
+  sinos: { lx: 690, ly: 372, anchor: 'end', tx: 676, ty: 376 },
+  metropolitana: { lx: 690, ly: 462, anchor: 'end', tx: 676, ty: 466 },
+  campanha: { lx: 300, ly: 636, anchor: 'middle', tx: 300, ty: 674 },
+};
+
+// Novelo no início do fio (sudoeste); a rota costura dele até a agulha na Serra
+const novelo: [number, number] = [318, 604];
+const rota = [novelo, m.campanha, m.metropolitana, m.sinos, m.serra].filter(Boolean);
+function catmullRom(pts: number[][]): string {
+  if (pts.length < 2) return '';
+  let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] ?? pts[i];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2] ?? p2;
+    const c1x = p1[0] + (p2[0] - p0[0]) / 6;
+    const c1y = p1[1] + (p2[1] - p0[1]) / 6;
+    const c2x = p2[0] - (p3[0] - p1[0]) / 6;
+    const c2y = p2[1] - (p3[1] - p1[1]) / 6;
+    d += ` C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+  }
+  return d;
+}
+const fioPath = catmullRom(rota);
+
+// Agulha na ponta da rota (Serra): alinhada com a direção do último trecho
+const s = m.serra, prev = m.sinos;
+const dx = s[0] - prev[0], dy = s[1] - prev[1];
+const ang = (Math.atan2(dx, -dy) * 180) / Math.PI; // grau para o transform (local: ponta para cima)
+
+const idsRotulo = Object.keys(ROTULOS).filter((id) => m[id]);
 ---
 <svg
-  viewBox="0 0 200 160"
+  viewBox={mapa.viewBox}
   role="img"
-  aria-label="Mapa estilizado do Rio Grande do Sul com as quatro regiões da pesquisa: Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre"
+  aria-label="Mapa bordado do Rio Grande do Sul: um fio de linha parte de um novelo e costura a rota entre as quatro regiões da pesquisa — Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre — até uma agulha na Serra"
   class="mapa"
+  class:list={[{ 'mapa--anima': fio }]}
 >
-  <path
-    d="M28,38 L70,22 L118,18 L152,30 L170,52 L178,80 L162,102 L138,124 L108,140 L76,134 L48,112 L30,84 Z"
-    fill="var(--cor-fundo-alt)"
-    stroke="var(--cor-acao)"
-    stroke-width="1.6"
-    stroke-linejoin="round"
-  />
-  {regioes.map((r) => {
-    const c = COORDENADAS[r.id];
-    if (!c) return null;
+  <defs>
+    <pattern id="trama" width="9" height="9" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="var(--cor-apoio)" stroke-width="0.8" opacity="0.18" />
+      <line x1="0" y1="0" x2="9" y2="0" stroke="var(--cor-apoio)" stroke-width="0.8" opacity="0.10" />
+    </pattern>
+  </defs>
+
+  <!-- Tecido do estado -->
+  <path d={mapa.path} class="mapa__tecido" />
+  <path d={mapa.path} class="mapa__trama" />
+  <!-- Contorno bordado: ponto-corrido grosso e visível -->
+  <path d={mapa.path} class="mapa__costura" />
+
+  {fio && (
+    <g>
+      <!-- Fio da rota, com sombra sutil de linha -->
+      <path d={fioPath} class="mapa__fio-sombra" />
+      <path d={fioPath} class="mapa__fio" pathLength="1" />
+
+      <!-- Novelo de linha no início -->
+      <g class="mapa__novelo" transform={`translate(${novelo[0]} ${novelo[1]})`}>
+        <circle r="24" class="mapa__novelo-corpo" />
+        <path d="M-24,-4 A24,24 0 0,1 8,-22" class="mapa__novelo-fio" />
+        <path d="M-20,10 A24,24 0 0,0 22,6" class="mapa__novelo-fio" />
+        <path d="M-14,-19 A24,24 0 0,1 20,12" class="mapa__novelo-fio" />
+        <path d="M-22,-8 A24,24 0 0,1 16,18" class="mapa__novelo-fio" />
+      </g>
+
+      <!-- Agulha na ponta (Serra) -->
+      <g class="mapa__agulha" transform={`translate(${s[0]} ${s[1]}) rotate(${ang.toFixed(1)}) scale(1.3)`}>
+        <polygon points="0,6 -3,-64 3,-64" class="mapa__agulha-haste" />
+        <rect x="-3" y="-82" width="6" height="20" rx="3" class="mapa__agulha-cabo" />
+        <ellipse cx="0" cy="-73" rx="1.6" ry="5" class="mapa__agulha-fenda" />
+      </g>
+    </g>
+  )}
+
+  <!-- Nós de ponto-cruz por região (× marca o lugar) -->
+  {idsRotulo.map((id, i) => {
+    const [x, y] = m[id];
+    const t = 12;
     return (
-      <g>
-        <circle cx={c.x} cy={c.y} r="7" fill={r.cor} />
-        <circle cx={c.x} cy={c.y} r="10.5" fill="none" stroke={r.cor} stroke-width="0.8" opacity="0.45" />
-        {rotulos && (
-          <text x={c.x + c.dx} y={c.y + c.dy} text-anchor="middle" class="mapa__rotulo">
-            {ROTULOS_CURTOS[r.id] ?? r.nome}
-          </text>
-        )}
+      <g class="mapa__no" style={`--cor-no:${cor[id]};--i:${i}`}>
+        <circle cx={x} cy={y} r="17" class="mapa__halo" />
+        <line x1={x - t} y1={y - t} x2={x + t} y2={y + t} class="mapa__ponto" />
+        <line x1={x - t} y1={y + t} x2={x + t} y2={y - t} class="mapa__ponto" />
+      </g>
+    );
+  })}
+
+  <!-- Rótulos com linha-guia pontilhada -->
+  {rotulos && idsRotulo.map((id) => {
+    const [x, y] = m[id];
+    const g = GUIA[id];
+    return (
+      <g class="mapa__rotulo-g">
+        <polyline points={`${x},${y} ${g.lx},${g.ly}`} class="mapa__guia" />
+        <text x={g.tx} y={g.ty} text-anchor={g.anchor} class="mapa__rotulo">{ROTULOS[id]}</text>
       </g>
     );
   })}
 </svg>
 
 <style>
-  .mapa { width: 100%; height: auto; }
+  .mapa { width: 100%; height: auto; overflow: visible; }
+
+  .mapa__tecido { fill: var(--cor-fundo-alt); opacity: 0.55; }
+  .mapa__trama { fill: url(#trama); stroke: none; }
+
+  .mapa__costura {
+    fill: none;
+    stroke: var(--cor-acao);
+    stroke-width: 4.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 11 9; /* ponto-corrido: pontos grossos e visíveis */
+    opacity: 0.92;
+  }
+
+  .mapa__fio-sombra {
+    fill: none;
+    stroke: color-mix(in srgb, var(--cor-texto) 60%, transparent);
+    stroke-width: 6;
+    stroke-linecap: round;
+    opacity: 0.18;
+    transform: translate(1.5px, 2.5px);
+  }
+  .mapa__fio {
+    fill: none;
+    stroke: var(--cor-texto);
+    stroke-width: 4.2;
+    stroke-linecap: round;
+  }
+
+  /* Novelo */
+  .mapa__novelo-corpo { fill: var(--cor-acento); stroke: color-mix(in srgb, var(--cor-texto) 30%, var(--cor-acento)); stroke-width: 1.5; }
+  .mapa__novelo-fio { fill: none; stroke: color-mix(in srgb, var(--cor-texto) 45%, var(--cor-acento)); stroke-width: 1.6; opacity: 0.85; stroke-linecap: round; }
+
+  /* Agulha */
+  .mapa__agulha-haste { fill: var(--cor-texto); }
+  .mapa__agulha-cabo { fill: var(--cor-texto); }
+  .mapa__agulha-fenda { fill: var(--cor-fundo); }
+
+  .mapa__halo { fill: var(--cor-no); opacity: 0.16; }
+  .mapa__ponto {
+    stroke: var(--cor-no);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .mapa__guia {
+    fill: none;
+    stroke: var(--cor-texto-2);
+    stroke-width: 1;
+    stroke-dasharray: 1 5;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
   .mapa__rotulo {
-    font-family: var(--fonte-texto);
-    font-size: 7.5px;
-    letter-spacing: 0.04em;
+    font-family: var(--fonte-titulo);
+    font-size: 28px;
+    font-style: italic;
     fill: var(--cor-texto);
+  }
+
+  /* Animação: novelo surge, o fio se costura, a agulha chega, os nós bordam */
+  .mapa--anima .mapa__fio,
+  .mapa--anima .mapa__fio-sombra {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: costurar 2.6s ease-in-out 0.6s forwards;
+  }
+  .mapa--anima .mapa__novelo {
+    opacity: 0;
+    animation: surgir 0.5s ease-out 0.15s forwards;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .mapa--anima .mapa__agulha {
+    opacity: 0;
+    animation: surgir 0.4s ease-out 3s forwards;
+  }
+  .mapa--anima .mapa__no {
+    opacity: 0;
+    animation: bordar 0.5s ease-out forwards;
+    animation-delay: calc(1.9s + var(--i) * 0.4s);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  @keyframes costurar { to { stroke-dashoffset: 0; } }
+  @keyframes surgir { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes bordar {
+    from { opacity: 0; transform: scale(0.4); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mapa--anima .mapa__fio,
+    .mapa--anima .mapa__fio-sombra { animation: none; stroke-dasharray: none; stroke-dashoffset: 0; }
+    .mapa--anima .mapa__novelo,
+    .mapa--anima .mapa__agulha,
+    .mapa--anima .mapa__no { animation: none; opacity: 1; }
   }
 </style>

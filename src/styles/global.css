@@ -10,6 +10,7 @@
   --fonte-titulo: 'Cormorant Garamond', Georgia, serif;
   --fonte-texto: 'Karla', system-ui, sans-serif;
   --largura-max: 1100px;
+  --linha: color-mix(in srgb, var(--cor-texto) 16%, transparent);
 }
 
 * { box-sizing: border-box; }
@@ -23,22 +24,27 @@ html {
 
 body {
   margin: 0;
-  background: var(--cor-fundo);
   color: var(--cor-texto);
   font-family: var(--fonte-texto);
   font-size: 1.06rem;
-  line-height: 1.65;
+  line-height: 1.68;
   -webkit-font-smoothing: antialiased;
+  /* Trama de linho: fios finos cruzados, muito sutis */
+  background-color: var(--cor-fundo);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(122, 106, 83, 0.045) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(0deg, rgba(122, 106, 83, 0.035) 0 1px, transparent 1px 4px);
 }
 
 h1, h2, h3 {
   font-family: var(--fonte-titulo);
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.1;
   margin: 0 0 0.5em;
+  text-wrap: balance;
 }
 
-p { margin: 0 0 1em; }
+p { margin: 0 0 1em; text-wrap: pretty; }
 
 a { color: var(--cor-acao); }
 
@@ -50,43 +56,59 @@ img { max-width: 100%; display: block; }
   padding-inline: 1.25rem;
 }
 
-.secao { padding-block: 4.5rem; }
+.secao { padding-block: 4.75rem; }
 @media (min-width: 768px) {
-  .secao { padding-block: 6rem; }
+  .secao { padding-block: 6.5rem; }
 }
 
+/* Eyebrow com um "ponto" de costura à esquerda — motivo têxtil recorrente */
 .tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
   font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--cor-acao);
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
+}
+.tag::before {
+  content: "";
+  width: 26px;
+  height: 0;
+  border-top: 1.5px dashed currentColor;
+  opacity: 0.7;
 }
 
 .titulo-secao {
-  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-size: clamp(2rem, 4.4vw, 2.9rem);
+  letter-spacing: -0.005em;
 }
 
 .botao {
   display: inline-block;
   background: var(--cor-acao);
   color: var(--cor-fundo);
-  padding: 0.8rem 1.7rem;
+  padding: 0.82rem 1.8rem;
   border-radius: 999px;
   font-size: 0.9rem;
   letter-spacing: 0.05em;
   text-decoration: none;
   border: 1px solid var(--cor-acao);
-  transition: filter 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
-.botao:hover { filter: brightness(1.1); }
+.botao:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--cor-texto) 55%, transparent);
+}
 
 .botao--fantasma {
   background: transparent;
   color: var(--cor-texto);
-  border-color: var(--cor-texto);
+  border-color: color-mix(in srgb, var(--cor-texto) 45%, transparent);
 }
+.botao--fantasma:hover { border-color: var(--cor-texto); box-shadow: none; }
 
 .pular-link {
   position: absolute;
@@ -101,4 +123,18 @@ img { max-width: 100%; display: block; }
 :focus-visible {
   outline: 2px solid var(--cor-acao);
   outline-offset: 3px;
+}
+
+/* Revelação suave ao rolar — só ativa quando há JS (fallback: visível) */
+html.js .revelar {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+html.js .revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .revelar { opacity: 1; transform: none; transition: none; }
 }

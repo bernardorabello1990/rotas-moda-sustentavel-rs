@@ -22,9 +22,13 @@ const links = [
 
 <style>
   .topo {
-    border-bottom: 1px solid color-mix(in srgb, var(--cor-texto) 14%, transparent);
-    padding-block: 0.9rem;
-    background: var(--cor-fundo);
+    border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-texto) 20%, transparent);
+    padding-block: 0.95rem;
+    background: color-mix(in srgb, var(--cor-fundo) 88%, transparent);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
   .topo__linha {
     display: flex;

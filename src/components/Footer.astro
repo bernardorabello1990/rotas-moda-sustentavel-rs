@@ -20,23 +20,20 @@ const ano = new Date().getFullYear();
   .rodape {
     background: var(--cor-texto);
     color: var(--cor-fundo-alt);
-    padding-block: 2.5rem;
+    padding-block: 2.75rem;
     font-size: 0.9rem;
+    /* Ourela: costura no topo do rodapé */
+    border-top: 2px dashed color-mix(in srgb, var(--cor-acento) 60%, transparent);
   }
   .rodape a { color: var(--cor-acento); text-decoration: none; }
   .rodape a:hover { text-decoration: underline; }
-  .rodape__edital { margin-bottom: 0.3rem; }
-  .rodape__selos {
-    font-size: 0.8rem;
-    opacity: 0.65;
-    margin-bottom: 1.6rem;
-  }
+  .rodape__edital { margin-bottom: 1.6rem; max-width: 46rem; }
   .rodape__linha {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 0.5rem 1.5rem;
-    border-top: 1px solid color-mix(in srgb, var(--cor-fundo) 20%, transparent);
-    padding-top: 1.2rem;
+    border-top: 1.5px dashed color-mix(in srgb, var(--cor-fundo) 24%, transparent);
+    padding-top: 1.3rem;
   }
 </style>
