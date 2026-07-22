@@ -1,0 +1,100 @@
+---
+import { site } from '../data/site.ts';
+const assunto = encodeURIComponent('Parceria — Rotas da Moda Sustentável RS');
+---
+<section id="contato" class="secao parceria">
+  <div class="container parceria__grade">
+    <div>
+      <span class="tag">Seja parceiro</span>
+      <h2 class="titulo-secao">Vamos tecer essa rota <em>juntos?</em></h2>
+      <p class="parceria__texto">
+        O Rotas da Moda Sustentável RS está construindo a primeira base pública sobre a moda sustentável
+        gaúcha — e busca parceiros institucionais, apoiadores e veículos de imprensa para ampliar o
+        alcance e o impacto desta pesquisa.
+      </p>
+      <p class="parceria__texto">
+        Se você representa o poder público, uma organização, uma marca ou a imprensa, escreva para nós.
+      </p>
+    </div>
+    <div class="parceria__acao">
+      {site.formEndpoint ? (
+        <form action={site.formEndpoint} method="POST" class="formulario">
+          <label>Nome<input type="text" name="nome" required /></label>
+          <label>Organização<input type="text" name="organizacao" /></label>
+          <label>E-mail<input type="email" name="email" required /></label>
+          <label>Mensagem<textarea name="mensagem" rows="4" required></textarea></label>
+          <button class="botao parceria__botao" type="submit">Enviar mensagem</button>
+        </form>
+      ) : (
+        <div class="parceria__mailto">
+          <p class="parceria__rotulo">Fale com a equipe</p>
+          <a class="parceria__email" href={`mailto:${site.email}?subject=${assunto}`}>{site.email}</a>
+          <a class="botao parceria__botao" href={`mailto:${site.email}?subject=${assunto}`}>Escrever agora</a>
+          <p class="parceria__news">
+            Prefere só acompanhar? Peça neste mesmo e-mail para entrar na lista de novidades.
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .parceria { background: var(--cor-acao); color: var(--cor-fundo); }
+  .parceria .tag { color: var(--cor-acento); }
+  .parceria__texto { color: color-mix(in srgb, var(--cor-fundo) 88%, var(--cor-acao)); max-width: 30rem; }
+  .parceria__grade { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 820px) { .parceria__grade { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+
+  .parceria__mailto {
+    background: color-mix(in srgb, var(--cor-texto) 25%, var(--cor-acao));
+    border-radius: 14px;
+    padding: 2.2rem;
+    text-align: center;
+  }
+  .parceria__rotulo {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 0.4rem;
+  }
+  .parceria__email {
+    display: block;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    color: var(--cor-fundo);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    word-break: break-all;
+  }
+  .parceria__botao {
+    background: var(--cor-fundo);
+    color: var(--cor-acao);
+    border-color: var(--cor-fundo);
+    font-weight: 600;
+  }
+  .parceria__news {
+    font-size: 0.82rem;
+    opacity: 0.75;
+    margin: 1rem 0 0;
+  }
+
+  .formulario { display: grid; gap: 1rem; }
+  .formulario label {
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .formulario input,
+  .formulario textarea {
+    background: var(--cor-fundo);
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--fonte-texto);
+    font-size: 1rem;
+    color: var(--cor-texto);
+  }
+</style>
