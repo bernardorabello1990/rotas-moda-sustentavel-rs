@@ -18,12 +18,11 @@ const GUIA: Record<string, { lx: number; ly: number; anchor: 'end' | 'middle'; t
   serra: { lx: 690, ly: 262, anchor: 'end', tx: 676, ty: 266 },
   sinos: { lx: 690, ly: 372, anchor: 'end', tx: 676, ty: 376 },
   metropolitana: { lx: 690, ly: 462, anchor: 'end', tx: 676, ty: 466 },
-  campanha: { lx: 300, ly: 636, anchor: 'middle', tx: 300, ty: 674 },
+  campanha: { lx: 386, ly: 648, anchor: 'middle', tx: 386, ty: 686 },
 };
 
-// Novelo no início do fio (sudoeste); a rota costura dele até a agulha na Serra
-const novelo: [number, number] = [318, 604];
-const rota = [novelo, m.campanha, m.metropolitana, m.sinos, m.serra].filter(Boolean);
+// Fio da rota: costura passando pelas regiões (Catmull-Rom -> curva suave)
+const rota = ['campanha', 'metropolitana', 'sinos', 'serra'].map((id) => m[id]).filter(Boolean);
 function catmullRom(pts: number[][]): string {
   if (pts.length < 2) return '';
   let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
@@ -41,18 +40,12 @@ function catmullRom(pts: number[][]): string {
   return d;
 }
 const fioPath = catmullRom(rota);
-
-// Agulha na ponta da rota (Serra): alinhada com a direção do último trecho
-const s = m.serra, prev = m.sinos;
-const dx = s[0] - prev[0], dy = s[1] - prev[1];
-const ang = (Math.atan2(dx, -dy) * 180) / Math.PI; // grau para o transform (local: ponta para cima)
-
 const idsRotulo = Object.keys(ROTULOS).filter((id) => m[id]);
 ---
 <svg
   viewBox={mapa.viewBox}
   role="img"
-  aria-label="Mapa bordado do Rio Grande do Sul: um fio de linha parte de um novelo e costura a rota entre as quatro regiões da pesquisa — Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre — até uma agulha na Serra"
+  aria-label="Mapa bordado do Rio Grande do Sul destacando as quatro regiões da pesquisa: Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre"
   class="mapa"
   class:list={[{ 'mapa--anima': fio }]}
 >
@@ -63,35 +56,14 @@ const idsRotulo = Object.keys(ROTULOS).filter((id) => m[id]);
     </pattern>
   </defs>
 
-  <!-- Tecido do estado -->
+  <!-- Tecido do estado: fundo + trama de linho -->
   <path d={mapa.path} class="mapa__tecido" />
   <path d={mapa.path} class="mapa__trama" />
-  <!-- Contorno bordado: ponto-corrido grosso e visível -->
+  <!-- Contorno bordado em ponto-corrido -->
   <path d={mapa.path} class="mapa__costura" />
 
-  {fio && (
-    <g>
-      <!-- Fio da rota, com sombra sutil de linha -->
-      <path d={fioPath} class="mapa__fio-sombra" />
-      <path d={fioPath} class="mapa__fio" pathLength="1" />
-
-      <!-- Novelo de linha no início -->
-      <g class="mapa__novelo" transform={`translate(${novelo[0]} ${novelo[1]})`}>
-        <circle r="24" class="mapa__novelo-corpo" />
-        <path d="M-24,-4 A24,24 0 0,1 8,-22" class="mapa__novelo-fio" />
-        <path d="M-20,10 A24,24 0 0,0 22,6" class="mapa__novelo-fio" />
-        <path d="M-14,-19 A24,24 0 0,1 20,12" class="mapa__novelo-fio" />
-        <path d="M-22,-8 A24,24 0 0,1 16,18" class="mapa__novelo-fio" />
-      </g>
-
-      <!-- Agulha na ponta (Serra) -->
-      <g class="mapa__agulha" transform={`translate(${s[0]} ${s[1]}) rotate(${ang.toFixed(1)}) scale(1.3)`}>
-        <polygon points="0,6 -3,-64 3,-64" class="mapa__agulha-haste" />
-        <rect x="-3" y="-82" width="6" height="20" rx="3" class="mapa__agulha-cabo" />
-        <ellipse cx="0" cy="-73" rx="1.6" ry="5" class="mapa__agulha-fenda" />
-      </g>
-    </g>
-  )}
+  <!-- Fio da rota, que se costura entre as regiões -->
+  {fio && <path d={fioPath} class="mapa__fio" pathLength="1" />}
 
   <!-- Nós de ponto-cruz por região (× marca o lugar) -->
   {idsRotulo.map((id, i) => {
@@ -131,33 +103,17 @@ const idsRotulo = Object.keys(ROTULOS).filter((id) => m[id]);
     stroke-width: 4.2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 11 9; /* ponto-corrido: pontos grossos e visíveis */
+    stroke-dasharray: 11 9; /* ponto-corrido grosso e visível */
     opacity: 0.92;
   }
 
-  .mapa__fio-sombra {
-    fill: none;
-    stroke: color-mix(in srgb, var(--cor-texto) 60%, transparent);
-    stroke-width: 6;
-    stroke-linecap: round;
-    opacity: 0.18;
-    transform: translate(1.5px, 2.5px);
-  }
   .mapa__fio {
     fill: none;
     stroke: var(--cor-texto);
-    stroke-width: 4.2;
+    stroke-width: 3.4;
     stroke-linecap: round;
+    opacity: 0.85;
   }
-
-  /* Novelo */
-  .mapa__novelo-corpo { fill: var(--cor-acento); stroke: color-mix(in srgb, var(--cor-texto) 30%, var(--cor-acento)); stroke-width: 1.5; }
-  .mapa__novelo-fio { fill: none; stroke: color-mix(in srgb, var(--cor-texto) 45%, var(--cor-acento)); stroke-width: 1.6; opacity: 0.85; stroke-linecap: round; }
-
-  /* Agulha */
-  .mapa__agulha-haste { fill: var(--cor-texto); }
-  .mapa__agulha-cabo { fill: var(--cor-texto); }
-  .mapa__agulha-fenda { fill: var(--cor-fundo); }
 
   .mapa__halo { fill: var(--cor-no); opacity: 0.16; }
   .mapa__ponto {
@@ -181,42 +137,27 @@ const idsRotulo = Object.keys(ROTULOS).filter((id) => m[id]);
     fill: var(--cor-texto);
   }
 
-  /* Animação: novelo surge, o fio se costura, a agulha chega, os nós bordam */
-  .mapa--anima .mapa__fio,
-  .mapa--anima .mapa__fio-sombra {
+  /* Animação: o fio se desenha, os nós surgem em sequência */
+  .mapa--anima .mapa__fio {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: costurar 2.6s ease-in-out 0.6s forwards;
-  }
-  .mapa--anima .mapa__novelo {
-    opacity: 0;
-    animation: surgir 0.5s ease-out 0.15s forwards;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-  .mapa--anima .mapa__agulha {
-    opacity: 0;
-    animation: surgir 0.4s ease-out 3s forwards;
+    animation: costurar 2.4s ease-in-out 0.4s forwards;
   }
   .mapa--anima .mapa__no {
     opacity: 0;
     animation: bordar 0.5s ease-out forwards;
-    animation-delay: calc(1.9s + var(--i) * 0.4s);
+    animation-delay: calc(1.7s + var(--i) * 0.4s);
     transform-box: fill-box;
     transform-origin: center;
   }
   @keyframes costurar { to { stroke-dashoffset: 0; } }
-  @keyframes surgir { from { opacity: 0; } to { opacity: 1; } }
   @keyframes bordar {
     from { opacity: 0; transform: scale(0.4); }
     to { opacity: 1; transform: scale(1); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mapa--anima .mapa__fio,
-    .mapa--anima .mapa__fio-sombra { animation: none; stroke-dasharray: none; stroke-dashoffset: 0; }
-    .mapa--anima .mapa__novelo,
-    .mapa--anima .mapa__agulha,
+    .mapa--anima .mapa__fio { animation: none; stroke-dasharray: none; stroke-dashoffset: 0; }
     .mapa--anima .mapa__no { animation: none; opacity: 1; }
   }
 </style>
