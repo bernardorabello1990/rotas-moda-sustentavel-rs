@@ -5,3 +5,4 @@ dist/
 .astro/
 .playwright-mcp/
 hero-*.png
+public/imagens/hero/Rotas_da_moda*
