@@ -15,8 +15,8 @@ const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da M
     {lista.length === 0 ? (
       <div class="podcast__embreve revelar">
         <p class="podcast__chamada">
-          As entrevistas da pesquisa darão origem a um podcast autoral — um episódio dedicado a cada
-          região, com os próprios agentes territoriais como protagonistas.
+          As entrevistas da pesquisa darão origem a um podcast autoral, com um episódio dedicado a cada
+          região e os próprios agentes territoriais como protagonistas.
         </p>
         <ul class="podcast__previa">
           {regioes.map((r, i) => (
@@ -33,7 +33,7 @@ const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da M
       <div class="podcast__lista">
         {lista.map((ep) => (
           <figure class="podcast__episodio">
-            <figcaption>{ep.titulo} — {ep.regiao}</figcaption>
+            <figcaption>{ep.titulo} · {ep.regiao}</figcaption>
             <iframe
               src={ep.spotifyEmbedUrl}
               title={`Player do episódio ${ep.titulo}`}

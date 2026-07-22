@@ -1,7 +1,7 @@
 export const site = {
   nome: 'Rotas da Moda Sustentável RS',
   descricao:
-    'Mapeamento cultural das vocações territoriais da moda sustentável no Rio Grande do Sul — dos fios de lã da Campanha ao carnaval de Porto Alegre.',
+    'Mapeamento cultural das vocações territoriais da moda sustentável no Rio Grande do Sul, dos fios de lã da Campanha ao carnaval de Porto Alegre.',
   // Provisório — trocar pelo e-mail institucional definitivo (pendência com a equipe):
   email: 'contato@rotasdamodars.com.br',
   // Quando criar o formulário no Formspree, colar o endpoint aqui (ex.: 'https://formspree.io/f/abcd1234').
