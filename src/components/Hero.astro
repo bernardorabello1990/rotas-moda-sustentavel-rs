@@ -4,7 +4,7 @@ import { site } from '../data/site.ts';
 <section id="hero" class="heroi">
   <div class="container heroi__centro">
     <h1 class="sr-only">Rotas da Moda Sustentável RS — mapeamento cultural da moda sustentável no Rio Grande do Sul</h1>
-    <span class="tag">Pesquisa cultural · Rio Grande do Sul</span>
+    <span class="tag heroi__olho">Pesquisa cultural · <span class="nao-quebra">Rio Grande do Sul</span></span>
     <div class="heroi__peca">
       <img
         src="/imagens/hero/hero-mapa.webp"
@@ -61,6 +61,19 @@ import { site } from '../data/site.ts';
     justify-content: center;
     gap: 0.8rem;
     margin-top: 1.6rem;
+  }
+
+  .nao-quebra { white-space: nowrap; }
+
+  @media (max-width: 767px) {
+    .heroi__olho {
+      display: block;
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      line-height: 1.5;
+      text-wrap: balance;
+    }
+    .heroi__olho::before { display: none; }
   }
 
   .sr-only {
