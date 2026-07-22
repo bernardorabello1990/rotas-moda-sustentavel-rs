@@ -1,0 +1,46 @@
+---
+import MapaRS from './MapaRS.astro';
+import { site } from '../data/site.ts';
+---
+<section id="hero" class="heroi">
+  <div class="container heroi__grade">
+    <div>
+      <span class="tag">Pesquisa cultural · Rio Grande do Sul</span>
+      <h1 class="heroi__titulo">Os caminhos da moda<br />sustentável no <em>RS</em></h1>
+      <p class="heroi__texto">{site.descricao}</p>
+      <div class="heroi__acoes">
+        <a class="botao" href="#contato">Seja parceiro</a>
+        <a class="botao botao--fantasma" href="#o-projeto">Conheça o projeto</a>
+      </div>
+    </div>
+    <div class="heroi__mapa">
+      <MapaRS />
+    </div>
+  </div>
+</section>
+
+<style>
+  .heroi { padding-block: 4rem 3.5rem; }
+  .heroi__grade {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 820px) {
+    .heroi { padding-block: 6rem 5rem; }
+    .heroi__grade { grid-template-columns: 1.15fr 1fr; }
+  }
+  .heroi__titulo { font-size: clamp(2.4rem, 6vw, 3.9rem); }
+  .heroi__texto {
+    color: var(--cor-texto-2);
+    max-width: 34rem;
+    font-size: 1.12rem;
+  }
+  .heroi__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.6rem;
+  }
+  .heroi__mapa { max-width: 460px; margin-inline: auto; width: 100%; }
+</style>

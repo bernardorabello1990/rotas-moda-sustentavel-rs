@@ -1,0 +1,58 @@
+---
+import regioes from '../data/regioes.json';
+
+interface Props { rotulos?: boolean }
+const { rotulos = true } = Astro.props;
+
+// Posições dos marcadores no viewBox 0 0 200 160 (mapa estilizado, não cartográfico)
+const COORDENADAS: Record<string, { x: number; y: number; dx: number; dy: number }> = {
+  serra: { x: 128, y: 48, dx: 0, dy: -13 },
+  campanha: { x: 58, y: 98, dx: 0, dy: 20 },
+  sinos: { x: 130, y: 76, dx: 32, dy: -8 },
+  metropolitana: { x: 146, y: 104, dx: 8, dy: 19 },
+};
+const ROTULOS_CURTOS: Record<string, string> = {
+  serra: 'Serra Gaúcha',
+  campanha: 'Campanha',
+  sinos: 'Vale dos Sinos',
+  metropolitana: 'Porto Alegre',
+};
+---
+<svg
+  viewBox="0 0 200 160"
+  role="img"
+  aria-label="Mapa estilizado do Rio Grande do Sul com as quatro regiões da pesquisa: Serra Gaúcha, Região da Campanha, Vale dos Sinos e Região Metropolitana de Porto Alegre"
+  class="mapa"
+>
+  <path
+    d="M28,38 L70,22 L118,18 L152,30 L170,52 L178,80 L162,102 L138,124 L108,140 L76,134 L48,112 L30,84 Z"
+    fill="var(--cor-fundo-alt)"
+    stroke="var(--cor-acao)"
+    stroke-width="1.6"
+    stroke-linejoin="round"
+  />
+  {regioes.map((r) => {
+    const c = COORDENADAS[r.id];
+    return (
+      <g>
+        <circle cx={c.x} cy={c.y} r="7" fill={r.cor} />
+        <circle cx={c.x} cy={c.y} r="10.5" fill="none" stroke={r.cor} stroke-width="0.8" opacity="0.45" />
+        {rotulos && (
+          <text x={c.x + c.dx} y={c.y + c.dy} text-anchor="middle" class="mapa__rotulo">
+            {ROTULOS_CURTOS[r.id]}
+          </text>
+        )}
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .mapa { width: 100%; height: auto; }
+  .mapa__rotulo {
+    font-family: var(--fonte-texto);
+    font-size: 7.5px;
+    letter-spacing: 0.04em;
+    fill: var(--cor-texto);
+  }
+</style>
