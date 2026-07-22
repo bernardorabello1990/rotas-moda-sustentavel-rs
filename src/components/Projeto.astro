@@ -1,0 +1,43 @@
+---
+import { site } from '../data/site.ts';
+---
+<section id="o-projeto" class="secao">
+  <div class="container projeto">
+    <div class="projeto__cabeca">
+      <span class="tag">O Projeto</span>
+      <h2 class="titulo-secao">A moda como campo cultural — <em>enfim no mapa</em></h2>
+    </div>
+    <div class="projeto__texto">
+      <p>
+        A moda raramente é tratada como campo cultural estruturado nas políticas públicas — apesar de sua
+        relação profunda com identidade, território, memória, festas e saberes tradicionais. O
+        <strong>Rotas da Moda Sustentável RS</strong> nasce para preencher essa lacuna.
+      </p>
+      <p>
+        O projeto realiza uma pesquisa cultural aplicada que mapeia e sistematiza as vocações territoriais
+        da moda sustentável no Rio Grande do Sul, ouvindo quem faz: designers, artesãos, coletivos,
+        cooperativas, carnavalescos, pequenas indústrias, pesquisadores e agentes culturais.
+      </p>
+      <p>
+        O resultado será um diagnóstico cultural inédito e uma base pública de dados — contribuindo para o
+        planejamento e o fortalecimento das políticas culturais e das indústrias criativas do estado.
+      </p>
+      <p class="projeto__edital">{site.creditoEdital}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projeto { display: grid; gap: 1.5rem; }
+  @media (min-width: 820px) {
+    .projeto { grid-template-columns: 1fr 1.4fr; gap: 4rem; }
+  }
+  .projeto__texto p { color: var(--cor-texto-2); }
+  .projeto__texto strong { color: var(--cor-texto); }
+  .projeto__edital {
+    border-left: 3px solid var(--cor-acento);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+  }
+</style>

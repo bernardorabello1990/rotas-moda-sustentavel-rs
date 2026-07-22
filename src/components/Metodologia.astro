@@ -1,0 +1,47 @@
+---
+const passos = [
+  { titulo: 'Exploração', texto: 'Levantamento documental e análise de estudos, políticas públicas e mapeamentos já existentes.' },
+  { titulo: 'Mapeamento', texto: 'Identificação de agentes, vocações e práticas da moda sustentável em cada território.' },
+  { titulo: 'Escuta em campo', texto: 'Entrevistas em profundidade e escutas sensíveis, com registro em áudio e fotografia dos processos.' },
+  { titulo: 'Análise', texto: 'Consolidação dos dados em um relatório técnico-cultural com recomendações estratégicas.' },
+  { titulo: 'Devolução pública', texto: 'Podcast, plataforma de mapeamento e evento de lançamento em Porto Alegre.' },
+];
+---
+<section id="metodologia" class="secao metodologia">
+  <div class="container">
+    <span class="tag">Metodologia</span>
+    <h2 class="titulo-secao">Uma jornada de escuta em cinco movimentos</h2>
+    <ol class="metodologia__lista">
+      {passos.map((p, i) => (
+        <li class="metodologia__passo">
+          <span class="metodologia__numero">{i + 1}</span>
+          <h3>{p.titulo}</h3>
+          <p>{p.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .metodologia { background: var(--cor-fundo-alt); }
+  .metodologia__lista {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 2rem 1.5rem;
+    counter-reset: passo;
+  }
+  @media (min-width: 680px) { .metodologia__lista { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .metodologia__lista { grid-template-columns: repeat(5, 1fr); } }
+  .metodologia__numero {
+    font-family: var(--fonte-titulo);
+    font-size: 2rem;
+    color: var(--cor-acao);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .metodologia__passo h3 { font-size: 1.25rem; }
+  .metodologia__passo p { font-size: 0.92rem; color: var(--cor-texto-2); margin: 0; }
+</style>
