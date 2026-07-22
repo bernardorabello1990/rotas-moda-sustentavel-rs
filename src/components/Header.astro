@@ -7,10 +7,13 @@ const links = [
   { rotulo: 'Contato', href: '#contato' },
 ];
 ---
-<header class="topo">
+<header class="topo" data-topo>
   <div class="container topo__linha">
     <a class="topo__marca" href="#conteudo">Rotas da Moda <em>Sustentável RS</em></a>
-    <nav aria-label="Navegação principal">
+    <button class="topo__hamb" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="menu-principal" class="topo__nav" aria-label="Navegação principal">
       <ul class="topo__menu">
         {links.map((l) => (
           <li><a href={l.href} class:list={['topo__link', { 'topo__link--destaque': l.href === '#contato' }]}>{l.rotulo}</a></li>
@@ -20,11 +23,32 @@ const links = [
   </div>
 </header>
 
+<script is:inline>
+  (function () {
+    var header = document.querySelector('[data-topo]');
+    if (!header) return;
+    var btn = header.querySelector('.topo__hamb');
+    function fechar() {
+      header.removeAttribute('data-aberto');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Abrir menu');
+    }
+    btn.addEventListener('click', function () {
+      var aberto = header.toggleAttribute('data-aberto');
+      btn.setAttribute('aria-expanded', String(aberto));
+      btn.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    });
+    header.querySelectorAll('.topo__link').forEach(function (a) {
+      a.addEventListener('click', fechar);
+    });
+  })();
+</script>
+
 <style>
   .topo {
     border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-texto) 20%, transparent);
     padding-block: 0.95rem;
-    background: color-mix(in srgb, var(--cor-fundo) 88%, transparent);
+    background: color-mix(in srgb, var(--cor-fundo) 90%, transparent);
     backdrop-filter: blur(6px);
     position: sticky;
     top: 0;
@@ -46,6 +70,7 @@ const links = [
     white-space: nowrap;
   }
   .topo__marca em { font-weight: 400; }
+
   .topo__menu {
     display: flex;
     flex-wrap: wrap;
@@ -63,4 +88,51 @@ const links = [
   }
   .topo__link:hover { color: var(--cor-acao); }
   .topo__link--destaque { color: var(--cor-acao); font-weight: 600; }
+
+  /* Botão hambúrguer — escondido no desktop */
+  .topo__hamb {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 38px;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .topo__hamb span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--cor-texto);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .topo__hamb { display: flex; }
+    .topo__nav {
+      flex-basis: 100%;
+      display: none;
+      padding-top: 0.6rem;
+      margin-top: 0.6rem;
+      border-top: 1.5px dashed color-mix(in srgb, var(--cor-texto) 18%, transparent);
+    }
+    .topo[data-aberto] .topo__nav { display: block; }
+    .topo__menu { flex-direction: column; gap: 0; }
+    .topo__menu li { border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-texto) 12%, transparent); }
+    .topo__menu li:last-child { border-bottom: none; }
+    .topo__link {
+      display: block;
+      padding: 0.85rem 0.2rem;
+      font-size: 0.9rem;
+    }
+    /* hambúrguer vira "x" quando aberto */
+    .topo[data-aberto] .topo__hamb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .topo[data-aberto] .topo__hamb span:nth-child(2) { opacity: 0; }
+    .topo[data-aberto] .topo__hamb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
 </style>
