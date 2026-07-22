@@ -29,7 +29,7 @@ const lista = regioes as Regiao[];
           )}
           <div class="cartao__corpo">
             <h3>{r.nome}</h3>
-            <p class="cartao__vocacao" class:list={[{ 'cartao__vocacao--claro': r.textoClaro }]}>{r.vocacao}</p>
+            <p class="cartao__vocacao">{r.vocacao}</p>
             <p class="cartao__texto">{r.texto}</p>
           </div>
         </article>
@@ -69,7 +69,8 @@ const lista = regioes as Regiao[];
   .cartao__corpo h3 { font-size: 1.6rem; }
   .cartao__vocacao {
     display: inline-block;
-    background: var(--cor-regiao);
+    background: transparent;
+    border: 1px solid var(--cor-regiao);
     color: var(--cor-texto);
     font-size: 0.75rem;
     letter-spacing: 0.08em;
@@ -78,6 +79,5 @@ const lista = regioes as Regiao[];
     border-radius: 999px;
     margin-bottom: 0.9rem;
   }
-  .cartao__vocacao--claro { color: var(--cor-fundo); }
   .cartao__texto { color: var(--cor-texto-2); margin: 0; font-size: 0.98rem; }
 </style>

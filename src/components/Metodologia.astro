@@ -25,13 +25,13 @@ const passos = [
 
 <style>
   .metodologia { background: var(--cor-fundo-alt); }
+  .metodologia .tag { color: color-mix(in srgb, var(--cor-acao) 80%, var(--cor-texto)); }
   .metodologia__lista {
     list-style: none;
     margin: 2.5rem 0 0;
     padding: 0;
     display: grid;
     gap: 2rem 1.5rem;
-    counter-reset: passo;
   }
   @media (min-width: 680px) { .metodologia__lista { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .metodologia__lista { grid-template-columns: repeat(5, 1fr); } }

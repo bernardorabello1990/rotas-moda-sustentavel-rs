@@ -33,13 +33,14 @@ const ROTULOS_CURTOS: Record<string, string> = {
   />
   {regioes.map((r) => {
     const c = COORDENADAS[r.id];
+    if (!c) return null;
     return (
       <g>
         <circle cx={c.x} cy={c.y} r="7" fill={r.cor} />
         <circle cx={c.x} cy={c.y} r="10.5" fill="none" stroke={r.cor} stroke-width="0.8" opacity="0.45" />
         {rotulos && (
           <text x={c.x + c.dx} y={c.y + c.dy} text-anchor="middle" class="mapa__rotulo">
-            {ROTULOS_CURTOS[r.id]}
+            {ROTULOS_CURTOS[r.id] ?? r.nome}
           </text>
         )}
       </g>
