@@ -1,0 +1,38 @@
+[
+  {
+    "id": "serra",
+    "nome": "Serra Gaúcha",
+    "vocacao": "Vestuário, moda festa e noivas",
+    "cor": "#9C4A2F",
+    "textoClaro": true,
+    "texto": "Tradição consolidada na indústria do vestuário, com forte presença da moda festa e do universo das noivas. Um polo onde o saber técnico das confecções encontra novas práticas de responsabilidade.",
+    "imagem": null
+  },
+  {
+    "id": "campanha",
+    "nome": "Região da Campanha",
+    "vocacao": "Lã, ovinocultura e tinturaria natural",
+    "cor": "#C9A227",
+    "textoClaro": false,
+    "texto": "Na fronteira sul, a cadeia da lã e a ovinocultura sustentam ofícios históricos, enquanto a tinturaria natural conecta a moda ao pampa, suas plantas e seus pigmentos.",
+    "imagem": null
+  },
+  {
+    "id": "sinos",
+    "nome": "Vale dos Sinos",
+    "vocacao": "Indústria e inovação social",
+    "cor": "#7A6A53",
+    "textoClaro": true,
+    "texto": "Histórico industrial relevante — especialmente no calçado — e um ecossistema emergente de iniciativas de inovação e responsabilidade social que reinventa o território produtivo.",
+    "imagem": null
+  },
+  {
+    "id": "metropolitana",
+    "nome": "Região Metropolitana de Porto Alegre",
+    "vocacao": "Upcycling, economia circular e carnaval",
+    "cor": "#3E2F23",
+    "textoClaro": true,
+    "texto": "Onde se consolidam práticas de upcycling, economia circular e reaproveitamento têxtil — e onde o carnaval transforma a reutilização criativa de materiais em expressão cultural viva.",
+    "imagem": null
+  }
+]

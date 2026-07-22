@@ -1,0 +1,23 @@
+[
+  {
+    "nome": "Dafne Panatieri",
+    "papel": "Pesquisa e estratégia em economia criativa",
+    "bio": "Pesquisadora e estrategista na interface entre moda, cultura, sustentabilidade e impacto social. Administradora pela FGV, especialista em Negócios da Moda pela USP e em Diversidade e Inclusão, mestranda em Comunicação pela PUCRS. Experiência em pesquisa aplicada, projetos culturais, curadoria e articulação de parcerias no setor da moda.",
+    "links": [],
+    "foto": null
+  },
+  {
+    "nome": "Laura Madalosso",
+    "papel": "Consultoria em moda e sustentabilidade",
+    "bio": "Consultora, pesquisadora e estrategista dedicada à transição da moda para modelos circulares, justos e regenerativos. Publicitária pela UFRGS, pós-graduada em Design de Moda (Unisinos) e especialista em Sustentabilidade (UNESC), com mais de 15 anos de indústria. Sócia-fundadora da Cora Design, consultoria estratégica e Empresa B Certificada.",
+    "links": [{ "rotulo": "Cora Design", "url": "https://coradesign.co/" }],
+    "foto": null
+  },
+  {
+    "nome": "Alice Castiel",
+    "papel": "Produção cultural e artística",
+    "bio": "Produtora cultural, artística e pesquisadora musical, graduada em Cinema pela PUCRS e mestranda em Design Estratégico pela Unisinos. Idealizou o projeto Concha, premiado pelo Edital Natura Musical, e produziu projetos como Ialodê (Lei Aldir Blanc) e IGBA AWÓ (Itaú Rumos). Vivência em metodologias ágeis e gestão de projetos e produtos digitais.",
+    "links": [],
+    "foto": null
+  }
+]
