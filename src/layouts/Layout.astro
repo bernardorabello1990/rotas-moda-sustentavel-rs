@@ -7,6 +7,7 @@ import '@fontsource/karla/400.css';
 import '@fontsource/karla/500.css';
 import '@fontsource/karla/600.css';
 import '../styles/global.css';
+import { site } from '../data/site.ts';
 
 interface Props { titulo?: string }
 const { titulo = 'Rotas da Moda Sustentável RS' } = Astro.props;
@@ -17,6 +18,15 @@ const { titulo = 'Rotas da Moda Sustentável RS' } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titulo}</title>
+    <meta name="description" content={site.descricao} />
+    <meta name="theme-color" content="#EDE3D4" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={site.url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={site.descricao} />
+    <meta property="og:url" content={site.url} />
+    <meta property="og:locale" content="pt_BR" />
   </head>
   <body>
     <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
