@@ -1,0 +1,72 @@
+---
+import equipe from '../data/equipe.json';
+import type { Membro } from '../data/tipos.ts';
+
+const lista = equipe as Membro[];
+const iniciais = (nome: string) =>
+  nome.split(' ').map((p) => p[0]).slice(0, 2).join('');
+---
+<section id="equipe" class="secao">
+  <div class="container">
+    <span class="tag">Equipe</span>
+    <h2 class="titulo-secao">Três trajetórias, um propósito</h2>
+    <div class="equipe__grade">
+      {lista.map((m) => (
+        <article class="membro">
+          {m.foto ? (
+            <img class="membro__foto" src={m.foto} alt={`Retrato de ${m.nome}`} />
+          ) : (
+            <div class="membro__avatar" aria-hidden="true">{iniciais(m.nome)}</div>
+          )}
+          <h3>{m.nome}</h3>
+          <p class="membro__papel">{m.papel}</p>
+          <p class="membro__bio">{m.bio}</p>
+          {m.links.length > 0 && (
+            <p class="membro__links">
+              {m.links.map((l) => (
+                <a href={l.url} rel="noopener">{l.rotulo}</a>
+              ))}
+            </p>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .equipe__grade {
+    display: grid;
+    gap: 2.5rem 2rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 820px) { .equipe__grade { grid-template-columns: repeat(3, 1fr); } }
+  .membro__avatar,
+  .membro__foto {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin-bottom: 1.2rem;
+  }
+  .membro__foto { object-fit: cover; }
+  .membro__avatar {
+    background: var(--cor-fundo-alt);
+    border: 1px solid var(--cor-apoio);
+    color: var(--cor-acao);
+    font-family: var(--fonte-titulo);
+    font-size: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .membro h3 { font-size: 1.5rem; margin-bottom: 0.1em; }
+  .membro__papel {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cor-acao);
+    margin-bottom: 0.8rem;
+  }
+  .membro__bio { font-size: 0.95rem; color: var(--cor-texto-2); }
+  .membro__links a { margin-right: 1rem; font-size: 0.9rem; }
+</style>
