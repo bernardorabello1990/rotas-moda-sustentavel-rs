@@ -1,0 +1,42 @@
+---
+import { site } from '../data/site.ts';
+const ano = new Date().getFullYear();
+---
+<footer class="rodape">
+  <div class="container">
+    <p class="rodape__edital">{site.creditoEdital}</p>
+    <p class="rodape__selos">Espaço reservado aos selos e logos institucionais do edital e dos apoios.</p>
+    <div class="rodape__linha">
+      <span>© {ano} {site.nome}</span>
+      <span>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        {site.instagram && <> · <a href={site.instagram}>Instagram</a></>}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    background: var(--cor-texto);
+    color: var(--cor-fundo-alt);
+    padding-block: 2.5rem;
+    font-size: 0.9rem;
+  }
+  .rodape a { color: var(--cor-acento); text-decoration: none; }
+  .rodape a:hover { text-decoration: underline; }
+  .rodape__edital { margin-bottom: 0.3rem; }
+  .rodape__selos {
+    font-size: 0.8rem;
+    opacity: 0.65;
+    margin-bottom: 1.6rem;
+  }
+  .rodape__linha {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--cor-fundo) 20%, transparent);
+    padding-top: 1.2rem;
+  }
+</style>

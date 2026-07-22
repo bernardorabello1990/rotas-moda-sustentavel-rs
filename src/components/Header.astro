@@ -1,0 +1,62 @@
+---
+const links = [
+  { rotulo: 'O Projeto', href: '#o-projeto' },
+  { rotulo: 'Regiões', href: '#regioes' },
+  { rotulo: 'Podcast', href: '#podcast' },
+  { rotulo: 'Equipe', href: '#equipe' },
+  { rotulo: 'Contato', href: '#contato' },
+];
+---
+<header class="topo">
+  <div class="container topo__linha">
+    <a class="topo__marca" href="#conteudo">Rotas da Moda <em>Sustentável RS</em></a>
+    <nav aria-label="Navegação principal">
+      <ul class="topo__menu">
+        {links.map((l) => (
+          <li><a href={l.href} class:list={['topo__link', { 'topo__link--destaque': l.href === '#contato' }]}>{l.rotulo}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .topo {
+    border-bottom: 1px solid color-mix(in srgb, var(--cor-texto) 14%, transparent);
+    padding-block: 0.9rem;
+    background: var(--cor-fundo);
+  }
+  .topo__linha {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem 1.5rem;
+  }
+  .topo__marca {
+    font-family: var(--fonte-titulo);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .topo__marca em { font-weight: 400; }
+  .topo__menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .topo__link {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cor-texto-2);
+    text-decoration: none;
+  }
+  .topo__link:hover { color: var(--cor-acao); }
+  .topo__link--destaque { color: var(--cor-acao); font-weight: 600; }
+</style>
