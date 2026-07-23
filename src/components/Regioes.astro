@@ -1,5 +1,4 @@
 ---
-import Bastidor from './Bastidor.astro';
 import regioes from '../data/regioes.json';
 import type { Regiao } from '../data/tipos.ts';
 
@@ -16,7 +15,13 @@ const lista = regioes as Regiao[];
           sustentabilidade. São essas vocações que a pesquisa percorre.
         </p>
       </div>
-      <div class="regioes__ilustra"><Bastidor /></div>
+      <div class="regioes__ilustra">
+        <img
+          src="/imagens/regioes/bastidor.webp"
+          width="760" height="847" loading="lazy"
+          alt="Bastidor de bordado com um raminho: uma flor e quatro folhas nas cores das quatro regiões da pesquisa (terracota, mostarda, verde e azul), com agulha e linha."
+        />
+      </div>
     </div>
 
     <div class="regioes__grade">
@@ -49,7 +54,8 @@ const lista = regioes as Regiao[];
     .regioes__cabeca { grid-template-columns: 1.3fr 1fr; gap: 4rem; }
   }
   .regioes__intro { color: var(--cor-texto-2); max-width: 32rem; }
-  .regioes__ilustra { max-width: 300px; margin-inline: auto; width: 100%; }
+  .regioes__ilustra { max-width: 340px; margin-inline: auto; width: 100%; }
+  .regioes__ilustra img { width: 100%; height: auto; }
 
   .regioes__grade { display: grid; gap: 1.5rem; }
   @media (min-width: 680px) { .regioes__grade { grid-template-columns: repeat(2, 1fr); } }
