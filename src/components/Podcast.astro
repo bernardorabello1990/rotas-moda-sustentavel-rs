@@ -8,7 +8,8 @@ const lista = episodios as Episodio[];
 const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da Moda Sustentável RS');
 ---
 <section id="podcast" class="secao podcast">
-  <div class="container">
+  <div class="container podcast__grade">
+    <div class="podcast__conteudo">
     <span class="tag">Podcast</span>
     <h2 class="titulo-secao">As vozes dos territórios</h2>
 
@@ -48,12 +49,27 @@ const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da M
         ))}
       </div>
     )}
+    </div>
+    <div class="podcast__ilustra" aria-hidden="true">
+      <img
+        src="/imagens/regioes/bastidor.webp"
+        width="760" height="847" loading="lazy"
+        alt="Bastidor de bordado com um raminho de folhas nas cores das quatro regiões, agulha e linha."
+      />
+    </div>
   </div>
 </section>
 
 <style>
   .podcast { background: var(--cor-texto); color: var(--cor-fundo); }
   .podcast .tag { color: var(--cor-acento); }
+  .podcast__grade { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 900px) {
+    .podcast__grade { grid-template-columns: 1.5fr 1fr; gap: 3.5rem; }
+  }
+  .podcast__ilustra { max-width: 330px; margin-inline: auto; width: 100%; }
+  .podcast__ilustra img { width: 100%; height: auto; }
+  @media (max-width: 899px) { .podcast__ilustra { display: none; } }
   .podcast__chamada { max-width: 38rem; color: var(--cor-fundo-alt); }
   .podcast__previa {
     list-style: none;

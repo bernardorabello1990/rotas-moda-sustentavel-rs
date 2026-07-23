@@ -7,10 +7,10 @@ import { site } from '../data/site.ts';
       <span class="tag">O Projeto</span>
       <h2 class="titulo-secao">A moda como campo cultural</h2>
       <img
-        class="projeto__moda"
-        src="/imagens/moda/moda.webp"
-        width="900" height="706" loading="lazy"
-        alt="Pilha de peças de moda que reúne as vocações dos quatro territórios: vestido de renda e vestido de paetês, tricô e cachecol de lã, botas e scarpin de couro, jaqueta jeans de patchwork e máscara de carnaval, com um carretel de linha."
+        class="projeto__manequim"
+        src="/imagens/moda/manequim.webp"
+        width="388" height="950" loading="lazy"
+        alt="Manequim vestindo peças que representam os quatro territórios: jaqueta jeans de patchwork, tricô de lã terracota, cachecol de lã, saia de renda, bota de couro e máscara de carnaval."
       />
     </div>
     <div class="projeto__texto">
@@ -38,7 +38,19 @@ import { site } from '../data/site.ts';
   @media (min-width: 820px) {
     .projeto { grid-template-columns: 1fr 1.4fr; gap: 4rem; }
   }
-  .projeto__moda { width: 100%; height: auto; margin-top: 1.8rem; }
+  .projeto__manequim {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 1.5rem auto 0;
+    position: relative;
+    z-index: 2;
+  }
+  /* efeito de "atravessar a divisão" só no desktop (no mobile empilha normal) */
+  @media (min-width: 820px) {
+    .projeto__manequim { margin-bottom: -140px; }
+  }
   .projeto__texto p { color: var(--cor-texto-2); }
   .projeto__texto strong { color: var(--cor-texto); }
   .projeto__edital {
