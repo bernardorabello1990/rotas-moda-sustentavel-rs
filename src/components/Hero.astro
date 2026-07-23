@@ -6,11 +6,14 @@ import { site } from '../data/site.ts';
     <h1 class="sr-only">Rotas da Moda Sustentável RS — mapeamento cultural da moda sustentável no Rio Grande do Sul</h1>
     <span class="tag heroi__olho">Pesquisa cultural · <span class="nao-quebra">Rio Grande do Sul</span></span>
     <div class="heroi__peca">
-      <img
-        src="/imagens/hero/hero-16x9.webp"
-        width="1600" height="893"
-        alt="Mapa bordado do Rio Grande do Sul feito de tecidos e retalhos, com as quatro regiões da pesquisa costuradas — Serra Gaúcha, Vale dos Sinos, Campanha e Porto Alegre — e uma rota de linha vermelha ligando-as, cercado por elementos de costura."
-      />
+      <picture>
+        <source media="(min-width: 768px)" srcset="/imagens/hero/hero-16x9.webp" width="1600" height="893" />
+        <img
+          src="/imagens/hero/hero-4x3.webp"
+          width="1200" height="896"
+          alt="Mapa bordado do Rio Grande do Sul feito de tecidos e retalhos, com as quatro regiões da pesquisa costuradas — Serra Gaúcha, Vale dos Sinos, Campanha e Porto Alegre — e uma rota de linha vermelha ligando-as, cercado por elementos de costura."
+        />
+      </picture>
     </div>
     <p class="heroi__texto">{site.descricao}</p>
     <div class="heroi__acoes">
@@ -40,6 +43,7 @@ import { site } from '../data/site.ts';
     display: flex;
     justify-content: center;
   }
+  .heroi__peca picture { display: contents; }
   .heroi__peca img {
     width: auto;
     max-width: 100%;

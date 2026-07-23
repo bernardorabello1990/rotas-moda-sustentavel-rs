@@ -47,7 +47,11 @@ import { site } from '../data/site.ts';
     position: relative;
     z-index: 2;
   }
-  /* efeito de "atravessar a divisão" só no desktop (no mobile empilha normal) */
+  /* no mobile o manequim fica bem menor e centralizado */
+  @media (max-width: 819px) {
+    .projeto__manequim { max-width: 180px; }
+  }
+  /* efeito de "atravessar a divisão" só no desktop */
   @media (min-width: 820px) {
     .projeto__manequim { margin-bottom: -140px; }
   }
