@@ -32,6 +32,21 @@ const { titulo = 'Rotas da Moda Sustentável RS' } = Astro.props;
   <body>
     <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
     <slot />
+
+    <!-- VLibras — tradutor oficial de Libras (Governo Federal) -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js" is:inline></script>
+    <script is:inline>
+      window.addEventListener('load', function () {
+        try { new window.VLibras.Widget('https://vlibras.gov.br/app'); } catch (e) {}
+      });
+    </script>
+
     <script is:inline>
       (function () {
         var alvos = document.querySelectorAll('.revelar');
