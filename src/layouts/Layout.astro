@@ -41,11 +41,7 @@ const { titulo = 'Rotas da Moda Sustentável RS' } = Astro.props;
       </div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js" is:inline></script>
-    <script is:inline>
-      window.addEventListener('load', function () {
-        try { new window.VLibras.Widget('https://vlibras.gov.br/app'); } catch (e) {}
-      });
-    </script>
+    <script is:inline>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 
     <script is:inline>
       (function () {
