@@ -306,6 +306,21 @@ function mountScrollWorld(container, config) {
   window.addEventListener('pointerdown', onFirstGesture, { once: true, passive: true });
   window.addEventListener('touchstart', onFirstGesture, { once: true, passive: true });
 
+  // Returning from a background tab: browsers tear down idle video decoders, which
+  // makes every subsequent seek slow (the film "jumps" between sparse frames).
+  // Re-prime every loaded clip (muted play->pause) so the decoders rebuild at once.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) return;
+    SEGMENTS.forEach(s => {
+      const v = s.video;
+      if (!v || !v.src) return;
+      try {
+        const p = v.play();
+        if (p && p.then) p.then(() => { try { v.pause(); } catch (e) {} }).catch(() => {});
+      } catch (e) {}
+    });
+  });
+
   // Particles are a per-frame cost we can't afford alongside video scrubbing on a phone.
   seedParticles(particles, reduce || coarse);
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
