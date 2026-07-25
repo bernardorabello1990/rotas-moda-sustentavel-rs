@@ -2,21 +2,16 @@
 <html lang="pt-BR">
 <head>
   <script>
-    // Se o sistema pede "menos movimento", oferecemos a escolha em vez de degradar calado.
-    // "voo-movimento": '1' = usuário pediu a experiência completa; '0' = preferiu sem animações.
+    // O voo é sempre animado: esta página ignora a preferência de "reduzir movimento"
+    // (decisão de produto; o site institucional permanece com acessibilidade integral).
     (() => {
-      const pede = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const escolha = localStorage.getItem('voo-movimento');
-      if (pede && escolha === '1') {
-        const original = window.matchMedia.bind(window);
-        window.matchMedia = (q) => {
-          if (typeof q === 'string' && q.includes('prefers-reduced-motion')) {
-            return { matches: false, media: q, addEventListener(){}, removeEventListener(){}, addListener(){}, removeListener(){}, onchange: null, dispatchEvent(){ return false; } };
-          }
-          return original(q);
-        };
-      }
-      window.__vooPerguntarMovimento = pede && escolha === null;
+      const original = window.matchMedia.bind(window);
+      window.matchMedia = (q) => {
+        if (typeof q === 'string' && q.includes('prefers-reduced-motion')) {
+          return { matches: false, media: q, addEventListener(){}, removeEventListener(){}, addListener(){}, removeListener(){}, onchange: null, dispatchEvent(){ return false; } };
+        }
+        return original(q);
+      };
     })();
   </script>
   <meta charset="utf-8" />
@@ -63,7 +58,6 @@
     #convite-voo b { font-size: 1.05rem; line-height: 0.7; animation: convite-pulsa 1.6s ease-in-out infinite; }
     @keyframes convite-entra { from { opacity: 0; transform: translateX(-50%) translateY(14px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
     @keyframes convite-pulsa { 0%, 100% { transform: translateY(0); opacity: .75; } 50% { transform: translateY(5px); opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { #convite-voo b { animation: none; } #convite-voo { animation: none; } }
   </style>
   <script>
     (() => {
@@ -76,54 +70,6 @@
   </script>
 
 
-  <!-- Escolha de movimento (só aparece quando o sistema pede menos animação) -->
-  <div id="escolha-movimento" hidden>
-    <div class="em-cartao">
-      <p class="em-titulo">Seu dispositivo está configurado para reduzir animações</p>
-      <p class="em-texto">Este é um sobrevoo animado pelo mundo bordado das rotas. Você decide como prefere ver:</p>
-      <div class="em-acoes">
-        <button id="em-sim" type="button">Ver com animações</button>
-        <button id="em-nao" type="button">Continuar sem animações</button>
-      </div>
-    </div>
-  </div>
-  <style>
-    #escolha-movimento {
-      position: fixed; inset: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(62, 47, 35, 0.55); padding: 20px;
-    }
-    #escolha-movimento[hidden] { display: none; }
-    .em-cartao {
-      max-width: 430px; background: #EDE3D4; color: #3E2F23;
-      border: 1.5px dashed #9C4A2F; border-radius: 16px;
-      padding: 1.8rem 1.9rem; text-align: center;
-      font-family: 'Karla', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-      box-shadow: 0 30px 60px -25px rgba(62,47,35,.8);
-    }
-    .em-titulo { font-family: Georgia, serif; font-size: 1.25rem; margin: 0 0 0.5rem; }
-    .em-texto { font-size: 0.95rem; color: #6B5844; margin: 0 0 1.2rem; }
-    .em-acoes { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; }
-    .em-acoes button {
-      padding: 0.75rem 1.5rem; border-radius: 999px; font-size: 0.9rem;
-      font-family: inherit; cursor: pointer; letter-spacing: 0.03em;
-    }
-    #em-sim { background: #9C4A2F; color: #EDE3D4; border: 1px solid #9C4A2F; }
-    #em-nao { background: transparent; color: #3E2F23; border: 1px solid rgba(62,47,35,.45); }
-  </style>
-  <script>
-    (() => {
-      if (!window.__vooPerguntarMovimento) return;
-      const ov = document.getElementById('escolha-movimento');
-      ov.hidden = false;
-      document.getElementById('em-sim').addEventListener('click', () => {
-        localStorage.setItem('voo-movimento', '1'); location.reload();
-      });
-      document.getElementById('em-nao').addEventListener('click', () => {
-        localStorage.setItem('voo-movimento', '0'); ov.hidden = true;
-      });
-    })();
-  </script>
 
   <script src="scrub-engine.js"></script>
   <script>
