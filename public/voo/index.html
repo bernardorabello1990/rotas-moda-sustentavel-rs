@@ -21,15 +21,15 @@
   <div id="world"></div>
 
   <!-- Botão de play: voa sozinho; qualquer gesto do visitante pausa e devolve o controle -->
-  <button id="btn-voo" aria-label="Assistir ao voo automaticamente" title="Assistir sem rolar">▶</button>
+  <button id="btn-voo" aria-label="Assistir ao voo automaticamente" title="Assistir sem rolar">▶&nbsp; Assistir ao voo</button>
   <style>
     #btn-voo {
-      position: fixed; right: 18px; bottom: 18px; z-index: 60;
-      width: 54px; height: 54px; border-radius: 50%;
-      border: 1.5px dashed rgba(237,227,212,.75);
+      position: fixed; left: 18px; bottom: 18px; z-index: 60;
+      padding: 0.8rem 1.7rem; border-radius: 999px;
+      border: 1px solid #9C4A2F;
       background: #9C4A2F; color: #EDE3D4;
-      font-size: 18px; line-height: 1; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
+      font-family: 'Karla', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem; letter-spacing: 0.05em; cursor: pointer;
       box-shadow: 0 12px 26px -12px rgba(62,47,35,.75);
       transition: transform .2s ease, filter .2s ease;
     }
@@ -44,7 +44,7 @@
       let raf = null, last = 0;
       function stop() {
         if (raf) { cancelAnimationFrame(raf); raf = null; }
-        last = 0; btn.textContent = '▶';
+        last = 0; btn.innerHTML = '▶&nbsp; Assistir ao voo';
         btn.setAttribute('aria-label', 'Assistir ao voo automaticamente');
       }
       function step(ts) {
@@ -57,7 +57,7 @@
       }
       btn.addEventListener('click', () => {
         if (raf) { stop(); return; }
-        btn.textContent = '❚❚';
+        btn.innerHTML = '❚❚&nbsp; Pausar';
         btn.setAttribute('aria-label', 'Pausar o voo');
         raf = requestAnimationFrame(step);
       });
