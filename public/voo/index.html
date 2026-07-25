@@ -20,51 +20,40 @@
 <body>
   <div id="world"></div>
 
-  <!-- Botão de play: voa sozinho; qualquer gesto do visitante pausa e devolve o controle -->
-  <button id="btn-voo" aria-label="Assistir ao voo automaticamente" title="Assistir sem rolar">▶&nbsp; Assistir ao voo</button>
+
+
+  <!-- Convite pra rolar: a experiência é pilotada pelo scroll -->
+  <div id="convite-voo" aria-hidden="true">
+    <span>Role para voar</span>
+    <b>▾</b>
+  </div>
   <style>
-    #btn-voo {
-      position: fixed; left: 18px; bottom: 18px; z-index: 60;
-      padding: 0.8rem 1.7rem; border-radius: 999px;
-      border: 1px solid #9C4A2F;
-      background: #9C4A2F; color: #EDE3D4;
+    .sw-hint { display: none !important; }
+    #convite-voo {
+      position: fixed; left: 50%; transform: translateX(-50%);
+      bottom: calc(26px + env(safe-area-inset-bottom)); z-index: 60;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 0.75rem 1.9rem; border-radius: 999px;
+      background: rgba(62, 47, 35, 0.85); color: #EDE3D4;
+      border: 1.5px dashed rgba(237, 227, 212, 0.55);
       font-family: 'Karla', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 0.9rem; letter-spacing: 0.05em; cursor: pointer;
-      box-shadow: 0 12px 26px -12px rgba(62,47,35,.75);
-      transition: transform .2s ease, filter .2s ease;
+      font-size: 0.82rem; letter-spacing: 0.22em; text-transform: uppercase;
+      pointer-events: none; box-shadow: 0 12px 28px -14px rgba(62,47,35,.8);
+      animation: convite-entra 1s ease 0.8s both;
+      transition: opacity 0.2s linear;
     }
-    #btn-voo:hover { filter: brightness(1.1); transform: translateY(-2px); }
-    #btn-voo:focus-visible { outline: 2px solid #EDE3D4; outline-offset: 3px; }
-    @media (prefers-reduced-motion: reduce) { #btn-voo { display: none; } }
+    #convite-voo b { font-size: 1.05rem; line-height: 0.7; animation: convite-pulsa 1.6s ease-in-out infinite; }
+    @keyframes convite-entra { from { opacity: 0; transform: translateX(-50%) translateY(14px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    @keyframes convite-pulsa { 0%, 100% { transform: translateY(0); opacity: .75; } 50% { transform: translateY(5px); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { #convite-voo b { animation: none; } #convite-voo { animation: none; } }
   </style>
   <script>
     (() => {
-      const btn = document.getElementById('btn-voo');
-      const DUR = 45; // segundos para o voo completo
-      let raf = null, last = 0;
-      function stop() {
-        if (raf) { cancelAnimationFrame(raf); raf = null; }
-        last = 0; btn.innerHTML = '▶&nbsp; Assistir ao voo';
-        btn.setAttribute('aria-label', 'Assistir ao voo automaticamente');
-      }
-      function step(ts) {
-        if (!last) last = ts;
-        const dt = (ts - last) / 1000; last = ts;
-        const span = document.body.scrollHeight - innerHeight;
-        window.scrollBy(0, (span / DUR) * dt);
-        if (innerHeight + window.scrollY >= document.body.scrollHeight - 2) { stop(); return; }
-        raf = requestAnimationFrame(step);
-      }
-      btn.addEventListener('click', () => {
-        if (raf) { stop(); return; }
-        btn.innerHTML = '❚❚&nbsp; Pausar';
-        btn.setAttribute('aria-label', 'Pausar o voo');
-        raf = requestAnimationFrame(step);
-      });
-      ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev =>
-        addEventListener(ev, (e) => {
-          if (raf && e.target !== btn && !btn.contains(e.target)) stop();
-        }, { passive: true }));
+      const cue = document.getElementById('convite-voo');
+      addEventListener('scroll', () => {
+        cue.style.animation = 'none';
+        cue.style.opacity = Math.max(0, 1 - scrollY / (0.45 * innerHeight));
+      }, { passive: true });
     })();
   </script>
 
