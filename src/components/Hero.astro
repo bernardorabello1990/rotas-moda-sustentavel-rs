@@ -102,6 +102,10 @@ import { site } from '../data/site.ts';
     background: color-mix(in srgb, var(--cor-acao) 10%, transparent);
     transform: translateY(-2px);
   }
+  /* A experiência /voo ainda não tem versão mobile (9:16) — convite só no desktop */
+  @media (max-width: 859px), (hover: none) and (pointer: coarse) {
+    .heroi__voo { display: none; }
+  }
 
   .nao-quebra { white-space: nowrap; }
 
