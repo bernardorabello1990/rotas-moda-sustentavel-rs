@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Rotas da Moda Sustentável RS — Um voo pelos territórios</title>
+  <meta name="description" content="Um sobrevoo cinematográfico pelo mundo bordado das rotas da moda sustentável do Rio Grande do Sul." />
+  <style>
+    :root, .sw-root {
+      --sw-bg: #EDE3D4;
+      --sw-ink: #3E2F23;
+      --sw-ink-soft: #6B5844;
+      --sw-accent: #9C4A2F;
+      --sw-font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --sw-font-body: 'Karla', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    }
+    html, body { margin: 0; background: var(--sw-bg); }
+  </style>
+</head>
+<body>
+  <div id="world"></div>
+
+  <!-- Botão de play: voa sozinho; qualquer gesto do visitante pausa e devolve o controle -->
+  <button id="btn-voo" aria-label="Assistir ao voo automaticamente" title="Assistir sem rolar">▶</button>
+  <style>
+    #btn-voo {
+      position: fixed; right: 18px; bottom: 18px; z-index: 60;
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 1.5px dashed rgba(237,227,212,.75);
+      background: #9C4A2F; color: #EDE3D4;
+      font-size: 18px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 12px 26px -12px rgba(62,47,35,.75);
+      transition: transform .2s ease, filter .2s ease;
+    }
+    #btn-voo:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    #btn-voo:focus-visible { outline: 2px solid #EDE3D4; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { #btn-voo { display: none; } }
+  </style>
+  <script>
+    (() => {
+      const btn = document.getElementById('btn-voo');
+      const DUR = 70; // segundos para o voo completo
+      let raf = null, last = 0;
+      function stop() {
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+        last = 0; btn.textContent = '▶';
+        btn.setAttribute('aria-label', 'Assistir ao voo automaticamente');
+      }
+      function step(ts) {
+        if (!last) last = ts;
+        const dt = (ts - last) / 1000; last = ts;
+        const span = document.body.scrollHeight - innerHeight;
+        window.scrollBy(0, (span / DUR) * dt);
+        if (innerHeight + window.scrollY >= document.body.scrollHeight - 2) { stop(); return; }
+        raf = requestAnimationFrame(step);
+      }
+      btn.addEventListener('click', () => {
+        if (raf) { stop(); return; }
+        btn.textContent = '❚❚';
+        btn.setAttribute('aria-label', 'Pausar o voo');
+        raf = requestAnimationFrame(step);
+      });
+      ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev =>
+        addEventListener(ev, (e) => {
+          if (raf && e.target !== btn && !btn.contains(e.target)) stop();
+        }, { passive: true }));
+    })();
+  </script>
+
+  <script src="scrub-engine.js"></script>
+  <script>
+    mountScrollWorld(document.getElementById('world'), {
+      brand: { name: 'Rotas da Moda Sustentável RS', href: '#top' },
+      hint: 'role para voar',
+      nav: true,
+      atmosphere: true,
+      diveScroll: 1.5,
+      connScroll: 0.9,
+      sections: [
+        {
+          id: 'mapa', label: 'O Mapa',
+          still: 'assets/cena0.webp', clip: 'assets/vid/dive0.mp4',
+          accent: '#9C4A2F',
+          scroll: 1.3, linger: 0.3,
+          eyebrow: 'Pesquisa cultural · Rio Grande do Sul',
+          title: 'Uma rota bordada à mão',
+          body: 'Role para levantar voo pelos quatro territórios da moda sustentável gaúcha.',
+          tags: [],
+        },
+        {
+          id: 'serra', label: 'Serra Gaúcha',
+          still: 'assets/cena1.webp', clip: 'assets/vid/dive1.mp4',
+          accent: '#9C4A2F',
+          scroll: 1.7, linger: 0.45,
+          eyebrow: 'A rota começa na serra',
+          title: 'Serra Gaúcha',
+          body: 'Tradição em moda festa e noivas: ateliês que bordam sonhos em renda, entre parreirais e telhados aconchegantes.',
+          tags: ['Moda festa', 'Noivas', 'Vestuário'],
+        },
+        {
+          id: 'sinos', label: 'Vale dos Sinos',
+          still: 'assets/cena2.webp', clip: 'assets/vid/dive2.mp4',
+          accent: '#6E7B45',
+          scroll: 1.5, linger: 0.4,
+          eyebrow: 'Do couro ao futuro',
+          title: 'Vale dos Sinos',
+          body: 'Berço calçadista do Brasil, hoje reinventando o couro com inovação e responsabilidade social.',
+          tags: ['Calçado', 'Couro', 'Inovação'],
+        },
+        {
+          id: 'campanha', label: 'Campanha',
+          still: 'assets/cena3.webp', clip: 'assets/vid/dive3.mp4',
+          accent: '#C9A227',
+          scroll: 1.5, linger: 0.4,
+          eyebrow: 'O pampa veste lã',
+          title: 'Região da Campanha',
+          body: 'Ovinocultura, tosquia e tinturaria natural: a moda que nasce do bioma pampa, das mãos e das plantas.',
+          tags: ['Lã', 'Ovinocultura', 'Tinturaria natural'],
+        },
+        {
+          id: 'poa', label: 'Porto Alegre',
+          still: 'assets/cena4.webp', clip: 'assets/vid/dive4.mp4',
+          accent: '#3F5570',
+          scroll: 1.8, linger: 0.5,
+          eyebrow: 'A metrópole circular',
+          title: 'Porto Alegre',
+          body: 'Upcycling, economia circular e o carnaval que transforma retalho em festa. A jornada termina — e o mapeamento começa.',
+          tags: ['Upcycling', 'Economia circular', 'Carnaval'],
+          cta: {
+            primary: { label: 'Conheça o projeto', href: 'https://rotas-da-moda-sustentavel-rs.netlify.app' },
+            secondary: { label: 'Seja parceiro', href: 'https://rotas-da-moda-sustentavel-rs.netlify.app/#contato' },
+          },
+        },
+      ],
+      connectors: ['assets/vid/conn0.mp4', 'assets/vid/conn1.mp4', 'assets/vid/conn2.mp4', 'assets/vid/conn3.mp4'],
+    });
+  </script>
+</body>
+</html>

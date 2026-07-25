@@ -20,6 +20,9 @@ import { site } from '../data/site.ts';
       <a class="botao" href="#contato">Seja parceiro</a>
       <a class="botao botao--fantasma" href="#o-projeto">Conheça o projeto</a>
     </div>
+    <a class="heroi__voo" href="/voo/" title="Experiência imersiva — melhor em tela grande">
+      🧵 Sobrevoe as rotas <span>· experiência imersiva</span>
+    </a>
   </div>
 </section>
 
@@ -80,6 +83,24 @@ import { site } from '../data/site.ts';
   .heroi__acoes .botao {
     padding: 0.8rem 1.85rem;
     font-size: 0.9rem;
+  }
+
+  .heroi__voo {
+    display: inline-block;
+    margin-top: 1.1rem;
+    padding: 0.55rem 1.3rem;
+    border: 1.5px dashed var(--cor-acao);
+    border-radius: 999px;
+    color: var(--cor-acao);
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .heroi__voo span { color: var(--cor-texto-2); }
+  .heroi__voo:hover {
+    background: color-mix(in srgb, var(--cor-acao) 10%, transparent);
+    transform: translateY(-2px);
   }
 
   .nao-quebra { white-space: nowrap; }
