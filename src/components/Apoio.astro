@@ -3,18 +3,28 @@
 // financiamento e realização precisam permanecer visíveis sobre fundo branco de
 // ponta a ponta. A superfície clara em meio ao índigo é intencional e não deve ser
 // escurecida nem "harmonizada" com o sistema. Ver DESIGN.md.
-// A faixa é um único arquivo com composição fixa e muito larga (1024x102): no
-// mobile ela rola no eixo x com largura mínima legível, em vez de encolher até
-// virar borrão. Não recortar nem deformar as marcas.
+// A arte oficial é um arquivo único de 1024x102. Para o mobile ela foi cortada
+// em duas partes num corredor de espaço em branco (x=653), o que empilha as
+// peças sem reagrupar marcas nem separar um rótulo do seu grupo: PRODUÇÃO e
+// FINANCIAMENTO ficam inteiros na parte A, REALIZAÇÃO inteiro na parte B.
+// No desktop as duas voltam a formar uma linha só. Não recortar mais fino nem
+// deformar as marcas.
 ---
 <section class="apoio" aria-labelledby="apoio-rotulo">
   <div class="container">
     <p class="razao apoio__rotulo" id="apoio-rotulo">Financiamento e realização</p>
-    <div class="apoio__rail" tabindex="0">
+    <div class="apoio__faixa">
       <img
-        src="/imagens/apoio/faixa-apoio.webp"
-        width="1024" height="102" loading="lazy"
-        alt="Política Nacional Aldir Blanc (PNAB). Produção. Financiamento: Pró-Cultura RS, Secretaria da Cultura e Governo do Estado do Rio Grande do Sul. Realização: Ministério da Cultura e Governo Federal do Brasil, União e Reconstrução."
+        class="apoio__peca apoio__peca--a"
+        src="/imagens/apoio/faixa-a.webp"
+        width="653" height="102" loading="lazy"
+        alt="Política Nacional Aldir Blanc (PNAB). Produção e financiamento: Pró-Cultura RS, Secretaria da Cultura e Governo do Estado do Rio Grande do Sul."
+      />
+      <img
+        class="apoio__peca apoio__peca--b"
+        src="/imagens/apoio/faixa-b.webp"
+        width="371" height="102" loading="lazy"
+        alt="Realização: Ministério da Cultura e Governo Federal do Brasil, União e Reconstrução."
       />
     </div>
   </div>
@@ -38,17 +48,27 @@
   /* anel de foco nunca em ouro sobre branco */
   .apoio :focus-visible { outline-color: var(--tinta); }
 
-  .apoio__rail {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
+  /* mobile: as duas peças empilham e cada uma usa a largura inteira, o que
+     dobra a altura útil dos logos sem rolagem lateral */
+  .apoio__faixa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.3rem;
   }
-  .apoio__rail img {
-    width: 100%;
-    /* piso de legibilidade: abaixo disso os logos deixam de ser identificáveis */
-    min-width: 680px;
-    max-width: 1080px;
-    height: auto;
-    object-fit: contain;
-    margin-inline: auto;
+  .apoio__peca { width: 100%; height: auto; object-fit: contain; }
+
+  /* desktop: as duas voltam a ser uma linha só, na proporção original */
+  @media (min-width: 760px) {
+    .apoio__faixa {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      max-width: 1024px;
+      margin-inline: auto;
+    }
+    .apoio__peca--a { width: 63.8%; }
+    .apoio__peca--b { width: 36.2%; }
   }
 </style>

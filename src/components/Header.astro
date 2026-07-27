@@ -41,6 +41,14 @@ const links = [
     header.querySelectorAll('.topo__link').forEach(function (a) {
       a.addEventListener('click', fechar);
     });
+
+    // no topo a navegação flutua sobre o brocado; assim que a página rola ela
+    // fecha em superfície sólida, senão o conteúdo das seções claras vaza por trás
+    function marcarRolagem() {
+      header.toggleAttribute('data-rolado', window.scrollY > 40);
+    }
+    marcarRolagem();
+    window.addEventListener('scroll', marcarRolagem, { passive: true });
   })();
 </script>
 
@@ -59,7 +67,9 @@ const links = [
     -webkit-backdrop-filter: blur(9px);
     backdrop-filter: blur(9px);
     border-bottom: 1px solid var(--urdume);
+    transition: background-color 0.3s ease;
   }
+  .topo[data-rolado] { background: var(--indigo-fundo); }
   .topo__linha {
     display: flex;
     flex-wrap: wrap;
