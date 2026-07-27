@@ -1,23 +1,23 @@
-/* Mundo "brocado jacquard" — ver DESIGN.md para o contrato de direção.
-   Seda índigo como chão, trama dourada como único acento, cartão perfurado em linho. */
+/* Mundo "oliva-pampa" — ver DESIGN.md para o contrato de direção.
+   Oliva profundo do campo como chão, latão como único acento, cartão perfurado em osso. */
 :root {
-  --indigo: #141F35;
-  --indigo-fundo: #0E1626;
-  --urdume: #1F2B44;
-  --ouro: #C9A227;
-  --ouro-claro: #E0C05A;
-  --linho: #E8E0CE;
-  --linho-2: #B9AF9A;
-  --tinta: #12100C;
+  --oliva: #2B3123;
+  --oliva-fundo: #1E2319;
+  --urdume: #3A4230;
+  --latao: #C2A657;
+  --latao-claro: #DCC177;
+  --osso: #EDE7D6;
+  --osso-2: #BDB49E;
+  --tinta: #14120D;
 
   /* fios de território: marcas pequenas, nunca área */
-  --fio-serra: #C2603A;
-  --fio-sinos: #8B9A5B;
-  --fio-campanha: #C9A227;
-  --fio-poa: #7796B8;
+  --fio-serra: #C9707A;
+  --fio-sinos: #C08A52;
+  --fio-campanha: #C2A657;
+  --fio-poa: #B87BB0;
 
   /* anel de foco: nunca a cor de acento sobre superfície da mesma cor */
-  --foco: var(--ouro-claro);
+  --foco: var(--latao-claro);
 
   --display: 'Italiana', 'Optima', serif;
   --corpo: 'Archivo', system-ui, sans-serif;
@@ -35,8 +35,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
 
 body {
   margin: 0;
-  background: var(--indigo);
-  color: var(--linho);
+  background: var(--oliva);
+  color: var(--osso);
   font-family: var(--corpo);
   font-size: 1.02rem;
   font-weight: 300;
@@ -44,7 +44,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* trama de urdume: fios verticais quase imperceptíveis sob todo o índigo */
+/* trama de urdume: fios verticais quase imperceptíveis sob todo o oliva */
 body::before {
   content: "";
   position: fixed;
@@ -65,11 +65,11 @@ h1, h2, h3 {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   text-wrap: balance;
-  color: var(--ouro);
+  color: var(--latao);
 }
 
 p { margin: 0 0 1.1em; max-width: var(--medida); text-wrap: pretty; }
-a { color: var(--ouro); }
+a { color: var(--latao); }
 img { max-width: 100%; display: block; }
 
 .container {
@@ -94,7 +94,7 @@ img { max-width: 100%; display: block; }
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--linho-2);
+  color: var(--osso-2);
 }
 
 /* ação de contorno: a única variante de botão do sistema */
@@ -104,30 +104,30 @@ img { max-width: 100%; display: block; }
   font-size: 0.76rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ouro);
+  color: var(--latao);
   text-decoration: none;
-  border: 1px solid var(--ouro);
+  border: 1px solid var(--latao);
   padding: 0.95rem 2.1rem;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
-.acao:hover { background: var(--ouro); color: var(--indigo); }
+.acao:hover { background: var(--latao); color: var(--oliva); }
 
-.acao--linho { color: var(--linho-2); border-color: var(--urdume); }
-.acao--linho:hover { background: transparent; color: var(--linho); border-color: var(--linho); }
+.acao--osso { color: var(--osso-2); border-color: var(--urdume); }
+.acao--osso:hover { background: transparent; color: var(--osso); border-color: var(--osso); }
 
 /* faixa de cartão perfurado: full-bleed, carrega informação real */
 .cartao {
-  background: var(--linho);
+  background: var(--osso);
   color: var(--tinta);
-  border-block: 1px solid rgba(18, 16, 12, 0.28);
+  border-block: 1px solid rgba(20, 18, 13, 0.28);
 }
-.cartao .razao { color: rgba(18, 16, 12, 0.62); }
+.cartao .razao { color: rgba(20, 18, 13, 0.62); }
 .cartao a { color: var(--tinta); }
 
 .pular-link {
   position: absolute;
   left: -9999px;
-  background: var(--linho);
+  background: var(--osso);
   color: var(--tinta);
   padding: 0.7rem 1.1rem;
   font-family: var(--razao);

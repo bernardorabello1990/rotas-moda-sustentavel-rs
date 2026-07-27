@@ -42,7 +42,7 @@ const links = [
       a.addEventListener('click', fechar);
     });
 
-    // no topo a navegação flutua sobre o brocado; assim que a página rola ela
+    // no topo a navegação flutua sobre a fotografia; assim que a página rola ela
     // fecha em superfície sólida, senão o conteúdo das seções claras vaza por trás
     function marcarRolagem() {
       header.toggleAttribute('data-rolado', window.scrollY > 40);
@@ -53,15 +53,15 @@ const links = [
 </script>
 
 <style>
-  /* A navegação flutua sobre o brocado do hero. Nada de barra opaca: uma película
-     de índigo deixa a trama passar por baixo e ainda garante AA no texto. */
+  /* A navegação flutua sobre a fotografia do hero. Nada de barra opaca: uma película
+     de oliva deixa a imagem passar por baixo e ainda garante AA no texto. */
   .topo {
     position: fixed;
     inset-inline: 0;
     top: 0;
     z-index: 50;
     padding-block: 0.85rem;
-    background: color-mix(in srgb, var(--indigo-fundo) 78%, transparent);
+    background: color-mix(in srgb, var(--oliva-fundo) 78%, transparent);
     /* o desfoque impede que texto de seção apareça como fantasma sob a navegação,
        sem precisar fechar a faixa em cor sólida */
     -webkit-backdrop-filter: blur(9px);
@@ -69,7 +69,7 @@ const links = [
     border-bottom: 1px solid var(--urdume);
     transition: background-color 0.3s ease;
   }
-  .topo[data-rolado] { background: var(--indigo-fundo); }
+  .topo[data-rolado] { background: var(--oliva-fundo); }
   .topo__linha {
     display: flex;
     flex-wrap: wrap;
@@ -85,14 +85,14 @@ const links = [
     font-size: 1.25rem;
     font-weight: 600;
     line-height: 1.25;
-    color: var(--linho);
+    color: var(--osso);
     text-decoration: none;
     white-space: nowrap;
   }
   .topo__marca em {
     font-style: italic;
     font-weight: 400;
-    color: var(--linho);
+    color: var(--osso);
   }
 
   .topo__menu {
@@ -109,19 +109,19 @@ const links = [
     font-weight: 400;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--linho-2);
+    color: var(--osso-2);
     text-decoration: none;
     transition: color 0.2s ease;
   }
-  .topo__link:hover { color: var(--linho); }
+  .topo__link:hover { color: var(--osso); }
   /* ênfase por régua de 1px, não por botão: o texto continua em linho (alto
      contraste) e o ouro entra só como fio estrutural */
   .topo__link--destaque {
-    color: var(--linho);
+    color: var(--osso);
     padding-bottom: 3px;
-    border-bottom: 1px solid var(--ouro);
+    border-bottom: 1px solid var(--latao);
   }
-  .topo__link--destaque:hover { border-bottom-color: var(--ouro-claro); }
+  .topo__link--destaque:hover { border-bottom-color: var(--latao-claro); }
 
   /* Botão hambúrguer: escondido no desktop */
   .topo__hamb {
@@ -140,7 +140,7 @@ const links = [
     display: block;
     height: 2px;
     width: 100%;
-    background: var(--linho);
+    background: var(--osso);
     transition: transform 0.25s ease, opacity 0.2s ease;
   }
 
@@ -158,8 +158,8 @@ const links = [
       margin-top: 0.7rem;
       border-top: 1px solid var(--urdume);
     }
-    /* menu aberto vira superfície fechada: texto nunca compete com o brocado */
-    .topo[data-aberto] { background: var(--indigo-fundo); }
+    /* menu aberto vira superfície fechada: texto nunca compete com a fotografia */
+    .topo[data-aberto] { background: var(--oliva-fundo); }
     .topo[data-aberto] .topo__nav { display: block; }
 
     .topo__menu { flex-direction: column; gap: 0; }
@@ -172,7 +172,7 @@ const links = [
     .topo__link--destaque {
       border-bottom: none;
       padding-bottom: 0.9rem;
-      color: var(--ouro);
+      color: var(--latao);
     }
     /* hambúrguer vira "x" quando aberto */
     .topo[data-aberto] .topo__hamb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }

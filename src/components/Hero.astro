@@ -10,12 +10,12 @@ const temFecho = site.descricao.endsWith(FECHO);
 const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descricao;
 ---
 <section id="hero" class="heroi">
-  <!-- brocado full-bleed: a trama cresce da esquerda escura para a direita dourada -->
-  <picture class="heroi__brocado">
+  <!-- fotografia full-bleed: o interior escuro da fábrica à esquerda, o tecido à direita -->
+  <picture class="heroi__foto">
     <img
       src="/imagens/textura/tear-jacquard.webp"
       width="1376" height="768" fetchpriority="high" decoding="async"
-      alt="Tecelagem: um pano de urdume índigo com listras douradas saindo de um tear jacquard, com um cartão perfurado apoiado sobre ele e o interior da fábrica ao fundo."
+      alt="Tecelagem: um pano de lã verde-oliva com listras ocres saindo de um tear jacquard, com um cartão perfurado apoiado sobre ele e o interior da fábrica ao fundo."
     />
   </picture>
 
@@ -27,7 +27,7 @@ const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descri
       <p class="heroi__apoio">{abertura}{temFecho && <span class="nao-quebra">{FECHO}</span>}</p>
       <div class="heroi__acoes">
         <a class="acao" href="#contato">Apoiar o projeto</a>
-        <a class="acao acao--linho" href="#o-projeto">Ver a pesquisa</a>
+        <a class="acao acao--osso" href="#o-projeto">Ver a pesquisa</a>
       </div>
       <!-- convite para a experiência imersiva: ainda sem versão 9:16, só no desktop -->
       <a class="razao heroi__voo" href="/voo/" title="Experiência imersiva, melhor em tela grande">
@@ -51,31 +51,29 @@ const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descri
     flex-direction: column;
   }
 
-  /* o brocado ocupa o viewport de borda a borda, atrás do texto */
   /* z-index -2: o véu (::before, em -1) tem de pintar POR CIMA da imagem.
      Com os dois em -1 o pseudo-elemento pinta antes e a foto engole o véu. */
-  .heroi__brocado { position: absolute; inset: 0; z-index: -2; display: block; }
-  /* a imagem é maior que o quadro e ancorada à esquerda: aproxima a trama e
-     deixa só o denim escuro sob a coluna de texto. Continua sangrando nas bordas. */
-  .heroi__brocado { overflow: hidden; }
-  .heroi__brocado img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
-  /* no mobile o recorte vai para a direita, onde estão o tear e o cartão perfurado */
+  .heroi__foto { position: absolute; inset: 0; z-index: -2; display: block; }
+  /* ancorada à esquerda: o interior escuro da fábrica fica sob a coluna de texto */
+  .heroi__foto { overflow: hidden; }
+  .heroi__foto img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+  /* no mobile o recorte vai para a direita, onde estão o tecido e o cartão perfurado */
   @media (max-width: 899px) {
-    .heroi__brocado img { object-position: 78% center; }
+    .heroi__foto img { object-position: 78% center; }
   }
   .heroi::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
-    /* véu direcional: firme onde o texto vive, aberto onde a trama floresce */
+    /* véu direcional: firme onde o texto vive, aberto onde o tecido aparece */
     background: linear-gradient(
       98deg,
-      rgba(14, 22, 38, 0.92) 0%,
-      rgba(14, 22, 38, 0.86) 30%,
-      rgba(14, 22, 38, 0.6) 48%,
-      rgba(14, 22, 38, 0.22) 70%,
-      rgba(14, 22, 38, 0.1) 100%
+      rgba(30, 35, 25, 0.94) 0%,
+      rgba(30, 35, 25, 0.91) 32%,
+      rgba(30, 35, 25, 0.74) 46%,
+      rgba(30, 35, 25, 0.26) 70%,
+      rgba(30, 35, 25, 0.1) 100%
     );
   }
   /* no mobile o texto ocupa a largura toda e a foto está no recorte claro:
@@ -84,9 +82,9 @@ const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descri
     .heroi::before {
       background: linear-gradient(
         to bottom,
-        rgba(14, 22, 38, 0.9) 0%,
-        rgba(14, 22, 38, 0.84) 55%,
-        rgba(14, 22, 38, 0.62) 100%
+        rgba(30, 35, 25, 0.9) 0%,
+        rgba(30, 35, 25, 0.84) 55%,
+        rgba(30, 35, 25, 0.62) 100%
       );
     }
   }
@@ -113,10 +111,10 @@ const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descri
   .heroi__placa {
     width: 100%;
     max-width: 31rem;
-    text-shadow: 0 1px 2px rgba(14, 22, 38, 0.9), 0 2px 14px rgba(14, 22, 38, 0.72);
+    text-shadow: 0 1px 2px rgba(30, 35, 25, 0.9), 0 2px 14px rgba(30, 35, 25, 0.72);
   }
 
-  .heroi__olho { margin: 0 0 1.6rem; color: var(--ouro); }
+  .heroi__olho { margin: 0 0 1.6rem; color: var(--latao); }
 
   .heroi__titulo {
     font-size: clamp(3.6rem, 11vw, 6rem);
@@ -126,7 +124,7 @@ const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descri
     max-width: 12ch;
   }
   .heroi__apoio {
-    color: var(--linho);
+    color: var(--osso);
     font-size: 1.06rem;
     max-width: 33rem;
     margin-bottom: 2.4rem;
@@ -139,15 +137,15 @@ const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descri
   .heroi__voo {
     display: inline-block;
     margin-top: 1.9rem;
-    color: var(--ouro);
+    color: var(--latao);
     text-decoration: none;
-    border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+    border-bottom: 1px solid rgba(194, 166, 87, 0.45);
     padding-bottom: 3px;
     transition: color 0.25s ease, border-color 0.25s ease;
   }
-  .heroi__voo span { color: var(--linho-2); }
-  .heroi__voo:hover { color: var(--ouro-claro); border-bottom-color: var(--ouro-claro); }
-  .heroi__voo:hover span { color: var(--linho); }
+  .heroi__voo span { color: var(--osso-2); }
+  .heroi__voo:hover { color: var(--latao-claro); border-bottom-color: var(--latao-claro); }
+  .heroi__voo:hover span { color: var(--osso); }
   /* a experiência ainda não tem versão 9:16: não convidar quem não pode entrar */
   @media (max-width: 859px), (hover: none) and (pointer: coarse) {
     .heroi__voo { display: none; }

@@ -3,36 +3,32 @@
     "id": "serra",
     "nome": "Serra Gaúcha",
     "vocacao": "Vestuário, moda festa e noivas",
-    "cor": "#C2603A",
     "texto": "Tradição consolidada na indústria do vestuário, com forte presença da moda festa e do universo das noivas. Um polo onde o saber técnico das confecções encontra novas práticas de responsabilidade.",
     "imagem": "/imagens/territorios/serra.webp",
-    "imagemAlt": "Macro de tule de seda marfim e bordado de miçangas costurado à mão sobre seda índigo."
+    "imagemAlt": "Macro de tule de seda marfim e bordado de pérolas costurado à mão sobre seda verde-oliva."
   },
   {
     "id": "campanha",
     "nome": "Região da Campanha",
     "vocacao": "Lã, ovinocultura e tinturaria natural",
-    "cor": "#C9A227",
     "texto": "Na fronteira sul, a cadeia da lã e a ovinocultura sustentam ofícios históricos, enquanto a tinturaria natural conecta a moda ao pampa, suas plantas e seus pigmentos.",
     "imagem": "/imagens/territorios/campanha.webp",
-    "imagemAlt": "Macro de lã bruta e meadas de fio tingido com pigmentos naturais em ocre e dourado."
+    "imagemAlt": "Macro de lã crua ao lado de meadas de fio tingido em ocre e verde-musgo com pigmentos naturais."
   },
   {
     "id": "sinos",
     "nome": "Vale dos Sinos",
     "vocacao": "Indústria e inovação social",
-    "cor": "#8B9A5B",
     "texto": "Histórico industrial relevante, especialmente no calçado, e um ecossistema emergente de iniciativas de inovação e responsabilidade social que reinventa o território produtivo.",
     "imagem": "/imagens/territorios/sinos.webp",
-    "imagemAlt": "Macro de couro de curtimento vegetal com costura de vira e linha encerada dourada."
+    "imagemAlt": "Macro de couro de curtimento vegetal com ilhós de latão e carretel de linha encerada sobre lona verde-oliva."
   },
   {
     "id": "metropolitana",
     "nome": "Região Metropolitana de Porto Alegre",
     "vocacao": "Upcycling, economia circular e carnaval",
-    "cor": "#7796B8",
     "texto": "Onde se consolidam práticas de upcycling, economia circular e reaproveitamento têxtil, e o carnaval transforma a reutilização criativa de materiais em expressão cultural viva.",
     "imagem": "/imagens/territorios/metropolitana.webp",
-    "imagemAlt": "Macro de retalhos têxteis recuperados e tira de lantejoulas douradas sendo descosturada."
+    "imagemAlt": "Macro de retalhos têxteis verde-oliva recuperados e tira de lantejoulas de latão sendo descosturada."
   }
 ]
