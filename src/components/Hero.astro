@@ -1,6 +1,13 @@
 ---
 import { site } from '../data/site.ts';
 import Apoio from './Apoio.astro';
+
+// A descrição continua vindo inteira de site.ts, porque é a mesma que alimenta
+// as metatags. Aqui só o fecho é mantido junto, para não quebrar entre
+// "ao carnaval de" e "Porto Alegre". Se a cópia mudar, degrada sem quebrar.
+const FECHO = 'ao carnaval de Porto Alegre.';
+const temFecho = site.descricao.endsWith(FECHO);
+const abertura = temFecho ? site.descricao.slice(0, -FECHO.length) : site.descricao;
 ---
 <section id="hero" class="heroi">
   <!-- brocado full-bleed: a trama cresce da esquerda escura para a direita dourada -->
@@ -17,7 +24,7 @@ import Apoio from './Apoio.astro';
     <div class="heroi__placa">
       <p class="razao heroi__olho">Pesquisa cultural · Rio Grande do Sul</p>
       <h1 class="heroi__titulo">Moda<br />como<br />origem</h1>
-      <p class="heroi__apoio">{site.descricao}</p>
+      <p class="heroi__apoio">{abertura}{temFecho && <span class="nao-quebra">{FECHO}</span>}</p>
       <div class="heroi__acoes">
         <a class="acao" href="#contato">Apoiar o projeto</a>
         <a class="acao acao--linho" href="#o-projeto">Ver a pesquisa</a>
@@ -124,6 +131,8 @@ import Apoio from './Apoio.astro';
     max-width: 33rem;
     margin-bottom: 2.4rem;
   }
+  .nao-quebra { white-space: nowrap; }
+
   .heroi__acoes { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
   /* o convite ao /voo é um fio, não um terceiro botão: não disputa com a ação principal */
