@@ -45,14 +45,20 @@ const links = [
 </script>
 
 <style>
+  /* A navegação flutua sobre o brocado do hero. Nada de barra opaca: uma película
+     de índigo deixa a trama passar por baixo e ainda garante AA no texto. */
   .topo {
-    border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-texto) 20%, transparent);
-    padding-block: 0.95rem;
-    background: color-mix(in srgb, var(--cor-fundo) 90%, transparent);
-    backdrop-filter: blur(6px);
-    position: sticky;
+    position: fixed;
+    inset-inline: 0;
     top: 0;
     z-index: 50;
+    padding-block: 0.85rem;
+    background: color-mix(in srgb, var(--indigo-fundo) 78%, transparent);
+    /* o desfoque impede que texto de seção apareça como fantasma sob a navegação,
+       sem precisar fechar a faixa em cor sólida */
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(9px);
+    border-bottom: 1px solid var(--urdume);
   }
   .topo__linha {
     display: flex;
@@ -61,35 +67,53 @@ const links = [
     justify-content: space-between;
     gap: 0.6rem 1.5rem;
   }
+
+  /* assinatura da marca como estava antes do redesign: caixa mista, peso,
+     e o "Sustentável RS" em itálico leve. Só as cores mudam de sistema. */
   .topo__marca {
-    font-family: var(--fonte-titulo);
+    font-family: var(--corpo);
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--cor-texto);
+    line-height: 1.25;
+    color: var(--linho);
     text-decoration: none;
     white-space: nowrap;
   }
-  .topo__marca em { font-weight: 400; }
+  .topo__marca em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--linho);
+  }
 
   .topo__menu {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.2rem 1.4rem;
+    gap: 0.2rem 1.6rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
   .topo__link {
+    font-family: var(--corpo);
     font-size: 0.82rem;
+    font-weight: 400;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--cor-texto-2);
+    color: var(--linho-2);
     text-decoration: none;
+    transition: color 0.2s ease;
   }
-  .topo__link:hover { color: var(--cor-acao); }
-  .topo__link--destaque { color: var(--cor-acao); font-weight: 600; }
+  .topo__link:hover { color: var(--linho); }
+  /* ênfase por régua de 1px, não por botão: o texto continua em linho (alto
+     contraste) e o ouro entra só como fio estrutural */
+  .topo__link--destaque {
+    color: var(--linho);
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--ouro);
+  }
+  .topo__link--destaque:hover { border-bottom-color: var(--ouro-claro); }
 
-  /* Botão hambúrguer — escondido no desktop */
+  /* Botão hambúrguer: escondido no desktop */
   .topo__hamb {
     display: none;
     flex-direction: column;
@@ -106,29 +130,39 @@ const links = [
     display: block;
     height: 2px;
     width: 100%;
-    background: var(--cor-texto);
-    border-radius: 2px;
+    background: var(--linho);
     transition: transform 0.25s ease, opacity 0.2s ease;
   }
 
   /* Mobile */
   @media (max-width: 767px) {
     .topo__hamb { display: flex; }
+    /* a assinatura quebra em duas linhas em vez de comprimir a linha inteira */
+    .topo__marca { white-space: normal; }
+    .topo__marca em { display: block; }
+
     .topo__nav {
       flex-basis: 100%;
       display: none;
-      padding-top: 0.6rem;
-      margin-top: 0.6rem;
-      border-top: 1.5px dashed color-mix(in srgb, var(--cor-texto) 18%, transparent);
+      padding-top: 0.4rem;
+      margin-top: 0.7rem;
+      border-top: 1px solid var(--urdume);
     }
+    /* menu aberto vira superfície fechada: texto nunca compete com o brocado */
+    .topo[data-aberto] { background: var(--indigo-fundo); }
     .topo[data-aberto] .topo__nav { display: block; }
+
     .topo__menu { flex-direction: column; gap: 0; }
-    .topo__menu li { border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-texto) 12%, transparent); }
-    .topo__menu li:last-child { border-bottom: none; }
+    .topo__menu li + li { border-top: 1px solid var(--urdume); }
     .topo__link {
       display: block;
-      padding: 0.85rem 0.2rem;
-      font-size: 0.9rem;
+      padding: 0.9rem 0.2rem;
+      font-size: 0.8rem;
+    }
+    .topo__link--destaque {
+      border-bottom: none;
+      padding-bottom: 0.9rem;
+      color: var(--ouro);
     }
     /* hambúrguer vira "x" quando aberto */
     .topo[data-aberto] .topo__hamb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }

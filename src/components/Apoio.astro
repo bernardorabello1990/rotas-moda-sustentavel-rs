@@ -1,27 +1,54 @@
 ---
-// Faixa institucional obrigatória (financiamento/realização) — fundo branco de ponta a ponta.
-// Tira única, responsiva: reduz proporcionalmente no mobile.
+// Faixa institucional OBRIGATÓRIA POR LEI (PNAB / Lei Aldir Blanc): os logos de
+// financiamento e realização precisam permanecer visíveis sobre fundo branco de
+// ponta a ponta. A superfície clara em meio ao índigo é intencional e não deve ser
+// escurecida nem "harmonizada" com o sistema. Ver DESIGN.md.
+// A faixa é um único arquivo com composição fixa e muito larga (1024x102): no
+// mobile ela rola no eixo x com largura mínima legível, em vez de encolher até
+// virar borrão. Não recortar nem deformar as marcas.
 ---
-<section class="apoio" aria-label="Financiamento e realização">
-  <img
-    src="/imagens/apoio/faixa-apoio.webp"
-    width="1024" height="102" loading="lazy"
-    alt="Política Nacional Aldir Blanc (PNAB). Produção. Financiamento: Pró-Cultura RS, Secretaria da Cultura e Governo do Estado do Rio Grande do Sul. Realização: Ministério da Cultura e Governo Federal do Brasil — União e Reconstrução."
-  />
+<section class="apoio" aria-labelledby="apoio-rotulo">
+  <div class="container">
+    <p class="razao apoio__rotulo" id="apoio-rotulo">Financiamento e realização</p>
+    <div class="apoio__rail" tabindex="0">
+      <img
+        src="/imagens/apoio/faixa-apoio.webp"
+        width="1024" height="102" loading="lazy"
+        alt="Política Nacional Aldir Blanc (PNAB). Produção. Financiamento: Pró-Cultura RS, Secretaria da Cultura e Governo do Estado do Rio Grande do Sul. Realização: Ministério da Cultura e Governo Federal do Brasil, União e Reconstrução."
+      />
+    </div>
+  </div>
 </section>
 
 <style>
   .apoio {
+    /* branco literal por exigência legal: as marcas oficiais não vão para fundo escuro */
     background: #ffffff;
-    width: 100%;
-    padding: 1.5rem 1.25rem;
-    display: flex;
-    justify-content: center;
+    color: var(--tinta);
+    border-block: 1px solid color-mix(in srgb, var(--tinta) 28%, transparent);
+    padding-block: 1.7rem;
   }
-  .apoio img {
+
+  /* rótulo de campo em mono, medido contra o branco real desta faixa */
+  .apoio__rotulo {
+    margin: 0 0 1rem;
+    color: var(--tinta);
+  }
+
+  /* anel de foco nunca em ouro sobre branco */
+  .apoio :focus-visible { outline-color: var(--tinta); }
+
+  .apoio__rail {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  .apoio__rail img {
     width: 100%;
+    /* piso de legibilidade: abaixo disso os logos deixam de ser identificáveis */
+    min-width: 680px;
     max-width: 1080px;
     height: auto;
-    display: block;
+    object-fit: contain;
+    margin-inline: auto;
   }
 </style>

@@ -8,18 +8,23 @@ const iniciais = (nome: string) =>
 ---
 <section id="equipe" class="secao">
   <div class="container">
-    <span class="tag">Equipe</span>
-    <h2 class="titulo-secao">Três trajetórias, um propósito</h2>
+    <h2 class="titulo">Quem assina a pesquisa</h2>
     <div class="equipe__grade">
       {lista.map((m) => (
         <article class="membro revelar">
           {m.foto ? (
-            <img class="membro__foto" src={m.foto} alt={`Retrato de ${m.nome}`} />
+            <img
+              class="membro__retrato"
+              src={m.foto}
+              alt={`Retrato de ${m.nome}`}
+              loading="lazy"
+              decoding="async"
+            />
           ) : (
-            <div class="membro__avatar" aria-hidden="true">{iniciais(m.nome)}</div>
+            <div class="membro__retrato membro__retrato--vazio" aria-hidden="true">{iniciais(m.nome)}</div>
           )}
-          <h3>{m.nome}</h3>
-          <p class="membro__papel">{m.papel}</p>
+          <h3 class="membro__nome">{m.nome}</h3>
+          <p class="razao membro__papel">{m.papel}</p>
           <p class="membro__bio">{m.bio}</p>
           {m.links.length > 0 && (
             <p class="membro__links">
@@ -35,41 +40,67 @@ const iniciais = (nome: string) =>
 </section>
 
 <style>
+  /* expediente de publicação: três colunas, régua no topo de cada uma */
   .equipe__grade {
     display: grid;
-    gap: 2.5rem 2rem;
-    margin-top: 2.5rem;
+    gap: 3.5rem;
+    margin-top: 3rem;
   }
-  @media (min-width: 820px) { .equipe__grade { grid-template-columns: repeat(3, 1fr); } }
-  .membro__avatar,
-  .membro__foto {
-    width: 116px;
-    height: 116px;
-    border-radius: 50%;
-    margin-bottom: 1.4rem;
-    /* Bastidor de bordado: anel pontilhado ao redor do retrato */
-    outline: 1.5px dashed color-mix(in srgb, var(--cor-apoio) 75%, transparent);
-    outline-offset: 6px;
+  @media (min-width: 820px) {
+    .equipe__grade { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
   }
-  .membro__foto { object-fit: cover; }
-  .membro__avatar {
-    background: var(--cor-fundo-alt);
-    border: 1px solid var(--cor-apoio);
-    color: var(--cor-acao);
-    font-family: var(--fonte-titulo);
-    font-size: 2.4rem;
+
+  .membro {
+    border-top: 1px solid var(--urdume);
+    padding-top: 1.5rem;
+  }
+
+  /* retrato em retângulo 4:5, moldura de 1px, canto reto */
+  .membro__retrato {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid var(--urdume);
+    margin-bottom: 1.7rem;
+  }
+  .membro__retrato--vazio {
+    background: var(--indigo-fundo);
+    color: var(--ouro);
+    font-family: var(--display);
+    font-size: 2.6rem;
+    letter-spacing: 0.08em;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .membro h3 { font-size: 1.5rem; margin-bottom: 0.1em; }
-  .membro__papel {
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cor-acao);
-    margin-bottom: 0.8rem;
+
+  .membro__nome {
+    font-size: clamp(1.5rem, 1.9vw, 1.7rem);
+    letter-spacing: 0.07em;
+    margin-bottom: 0.6rem;
   }
-  .membro__bio { font-size: 0.95rem; color: var(--cor-texto-2); }
-  .membro__links a { margin-right: 1rem; font-size: 0.9rem; }
+  .membro__papel {
+    margin: 0 0 1.2rem;
+    line-height: 1.5;
+  }
+  .membro__bio {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--linho-2);
+    margin-bottom: 1rem;
+  }
+
+  .membro__links { margin: 0; }
+  .membro__links a {
+    font-size: 0.86rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--urdume);
+    padding-bottom: 2px;
+    margin-right: 1.2rem;
+  }
+  .membro__links a:hover {
+    color: var(--ouro-claro);
+    border-bottom-color: var(--ouro-claro);
+  }
 </style>

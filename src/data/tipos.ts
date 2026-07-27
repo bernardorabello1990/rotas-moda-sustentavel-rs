@@ -3,9 +3,9 @@ export interface Regiao {
   nome: string;
   vocacao: string;
   cor: string;
-  textoClaro: boolean;
   texto: string;
   imagem: string | null; // caminho em /public quando houver fotos da pesquisa
+  imagemAlt?: string; // descrição do estudo de matéria-prima, obrigatória quando há imagem
 }
 
 export interface Membro {

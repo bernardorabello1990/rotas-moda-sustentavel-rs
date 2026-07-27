@@ -1,132 +1,165 @@
 ---
+import regioes from '../data/regioes.json';
 import { site } from '../data/site.ts';
+
+const fio: Record<string, string> = {
+  serra: 'var(--fio-serra)',
+  sinos: 'var(--fio-sinos)',
+  campanha: 'var(--fio-campanha)',
+  metropolitana: 'var(--fio-poa)',
+};
+const curto: Record<string, string> = {
+  serra: 'Serra Gaúcha',
+  sinos: 'Vale dos Sinos',
+  campanha: 'Campanha',
+  metropolitana: 'Porto Alegre',
+};
+const ordem = ['serra', 'sinos', 'campanha', 'metropolitana'];
 ---
 <section id="hero" class="heroi">
-  <div class="heroi__centro">
-    <h1 class="sr-only">Rotas da Moda Sustentável RS — mapeamento cultural da moda sustentável no Rio Grande do Sul</h1>
-    <span class="tag heroi__olho">Pesquisa cultural · <span class="nao-quebra">Rio Grande do Sul</span></span>
-    <div class="heroi__peca">
-      <picture>
-        <source media="(min-width: 768px)" srcset="/imagens/hero/hero-16x9.webp" width="1600" height="893" />
-        <img
-          src="/imagens/hero/hero-4x3.webp"
-          width="1200" height="896"
-          alt="Mapa bordado do Rio Grande do Sul feito de tecidos e retalhos, com as quatro regiões da pesquisa costuradas — Serra Gaúcha, Vale dos Sinos, Campanha e Porto Alegre — e uma rota de linha vermelha ligando-as, cercado por elementos de costura."
-        />
-      </picture>
+  <!-- brocado full-bleed: a trama cresce da esquerda escura para a direita dourada -->
+  <picture class="heroi__brocado">
+    <source media="(min-width: 760px)" srcset="/imagens/textura/brocado-hero.webp" />
+    <img
+      src="/imagens/textura/brocado-hero-mobile.webp"
+      width="1920" height="1072" fetchpriority="high" decoding="async"
+      alt="Brocado jacquard: seda índigo com trama de fios dourados formando um motivo têxtil ornamentado."
+    />
+  </picture>
+
+  <div class="container heroi__conteudo">
+    <!-- placa de tinta: superfície sólida pousada sobre a trama, o texto nunca disputa com o padrão -->
+    <div class="heroi__placa">
+      <p class="razao heroi__olho">Pesquisa cultural · Rio Grande do Sul</p>
+      <h1 class="heroi__titulo">Moda<br />como<br />origem</h1>
+      <p class="heroi__apoio">{site.descricao}</p>
+      <div class="heroi__acoes">
+        <a class="acao" href="#contato">Apoiar o projeto</a>
+        <a class="acao acao--linho" href="#o-projeto">Ver a pesquisa</a>
+      </div>
     </div>
-    <p class="heroi__texto">{site.descricao}</p>
-    <div class="heroi__acoes">
-      <a class="botao" href="#contato">Seja parceiro</a>
-      <a class="botao botao--fantasma" href="#o-projeto">Conheça o projeto</a>
+  </div>
+
+  <!-- faixa de cartão perfurado: os quatro territórios como instrução numerada -->
+  <div class="cartao rota">
+    <div class="container rota__grade">
+      <p class="razao rota__legenda">A rota <span>4 territórios</span></p>
+      <ol class="rota__lista">
+        {ordem.map((id, i) => {
+          const r = regioes.find((x) => x.id === id);
+          return (
+            <li class="rota__item">
+              <span class="razao rota__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="rota__nome" style={`--fio:${fio[id]}`}>{curto[id]}</span>
+              <span class="rota__vocacao">{r?.vocacao}</span>
+            </li>
+          );
+        })}
+      </ol>
     </div>
-    <a class="heroi__voo" href="/voo/" title="Experiência imersiva — melhor em tela grande">
-      🧵 Sobrevoe as rotas <span>· experiência imersiva</span>
-    </a>
   </div>
 </section>
 
 <style>
-  .heroi { padding-block: 1.75rem 2.75rem; }
-  @media (min-width: 820px) { .heroi { padding-block: 2rem 3.25rem; } }
+  .heroi { position: relative; isolation: isolate; }
 
-  .heroi__centro {
+  /* o brocado ocupa o viewport de borda a borda, atrás do texto */
+  /* z-index -2: o véu (::before, em -1) tem de pintar POR CIMA da imagem.
+     Com os dois em -1 o pseudo-elemento pinta antes e a foto engole o véu. */
+  .heroi__brocado { position: absolute; inset: 0; z-index: -2; display: block; }
+  /* a imagem é maior que o quadro e ancorada à esquerda: aproxima a trama e
+     deixa só o denim escuro sob a coluna de texto. Continua sangrando nas bordas. */
+  .heroi__brocado { overflow: hidden; }
+  .heroi__brocado img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+  @media (min-width: 900px) {
+    /* zoom: aproxima a trama e joga o ouro para a direita, abrindo área de
+       índigo à esquerda, onde o texto pousa */
+    .heroi__brocado img { width: 162%; }
+  }
+  .heroi::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    /* véu direcional: firme onde o texto vive, aberto onde a trama floresce */
+    background: linear-gradient(
+      98deg,
+      rgba(14, 22, 38, 0.92) 0%,
+      rgba(14, 22, 38, 0.86) 30%,
+      rgba(14, 22, 38, 0.6) 48%,
+      rgba(14, 22, 38, 0.22) 70%,
+      rgba(14, 22, 38, 0.1) 100%
+    );
+  }
+
+  .heroi__conteudo {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 1400px;
-    margin-inline: auto;
-    padding-inline: 1.25rem;
+    align-items: flex-start;
+    justify-content: center;
+    padding-block: 5rem 5.5rem;
+    min-height: min(78vh, 660px);
   }
-  .heroi__peca {
-    max-width: 1320px;
+  @media (min-width: 900px) {
+    .heroi__conteudo { padding-block: 7.5rem 7.5rem; min-height: min(82vh, 720px); }
+  }
+
+  /* a placa: tinta sólida, filete de ouro, ar generoso. Nunca uma caixinha. */
+  /* sem caixa: o texto fica direto na seda, numa coluna estreita à esquerda.
+     A leitura vem da sombra no próprio glifo, que adensa a borda das letras
+     sem desenhar nenhum retângulo. */
+  .heroi__placa {
     width: 100%;
-    margin: 0.25rem 0 1.15rem;
-    display: flex;
-    justify-content: center;
-  }
-  .heroi__peca picture { display: contents; }
-  .heroi__peca img {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 58vh;
-    border-radius: 12px;
-    box-shadow: 0 26px 55px -26px color-mix(in srgb, var(--cor-texto) 72%, transparent);
-    animation: heroi-entra 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-  }
-  /* No desktop, a imagem preenche o espaço livre da tela (grande em telas grandes,
-     encolhe só o necessário em laptops menores — botões sempre na dobra) */
-  @media (min-width: 820px) {
-    .heroi__peca img { max-height: calc(100vh - 315px); }
-  }
-  @keyframes heroi-entra {
-    from { opacity: 0; transform: translateY(18px) scale(0.985); }
-    to { opacity: 1; transform: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .heroi__peca img { animation: none; }
-  }
-  .heroi__texto {
-    color: var(--cor-texto-2);
-    max-width: 42rem;
-    font-size: clamp(1.02rem, 1.1vw, 1.18rem);
-  }
-  .heroi__acoes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.8rem;
-    margin-top: 0.7rem;
-  }
-  .heroi__acoes .botao {
-    padding: 0.8rem 1.85rem;
-    font-size: 0.9rem;
+    max-width: 31rem;
+    text-shadow: 0 1px 2px rgba(14, 22, 38, 0.9), 0 2px 14px rgba(14, 22, 38, 0.72);
   }
 
-  .heroi__voo {
-    display: inline-block;
-    margin-top: 1.1rem;
-    padding: 0.55rem 1.3rem;
-    border: 1.5px dashed var(--cor-acao);
-    border-radius: 999px;
-    color: var(--cor-acao);
-    font-size: 0.86rem;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-  .heroi__voo span { color: var(--cor-texto-2); }
-  .heroi__voo:hover {
-    background: color-mix(in srgb, var(--cor-acao) 10%, transparent);
-    transform: translateY(-2px);
-  }
-  /* A experiência /voo ainda não tem versão mobile (9:16) — convite só no desktop */
-  @media (max-width: 859px), (hover: none) and (pointer: coarse) {
-    .heroi__voo { display: none; }
-  }
+  .heroi__olho { margin: 0 0 1.6rem; color: var(--ouro); }
 
-  .nao-quebra { white-space: nowrap; }
-
-  @media (max-width: 767px) {
-    .heroi__olho {
-      display: block;
-      font-size: 0.66rem;
-      letter-spacing: 0.16em;
-      line-height: 1.5;
-      text-wrap: balance;
-    }
-    .heroi__olho::before { display: none; }
+  .heroi__titulo {
+    font-size: clamp(3.6rem, 11vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: 0.045em;
+    margin-bottom: 1.8rem;
+    max-width: 12ch;
   }
-
-  .sr-only {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
+  .heroi__apoio {
+    color: var(--linho);
+    font-size: 1.06rem;
+    max-width: 33rem;
+    margin-bottom: 2.4rem;
   }
+  .heroi__acoes { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+  /* faixa da rota */
+  .rota { padding-block: 1.7rem; }
+  .rota__grade { display: grid; gap: 1.3rem; }
+  @media (min-width: 900px) {
+    .rota__grade { grid-template-columns: auto 1fr; gap: 3.5rem; align-items: start; }
+  }
+  .rota__legenda { margin: 0; white-space: nowrap; }
+  .rota__legenda span { display: block; color: rgba(18, 16, 12, 0.45); }
+
+  .rota__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem 2.2rem; }
+  @media (min-width: 640px) { .rota__lista { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .rota__lista { grid-template-columns: repeat(4, 1fr); } }
+
+  .rota__item {
+    display: grid;
+    gap: 0.2rem;
+    padding-top: 0.6rem;
+    border-top: 1px dotted rgba(18, 16, 12, 0.35);
+  }
+  .rota__num { color: rgba(18, 16, 12, 0.5); }
+  .rota__nome {
+    font-family: var(--display);
+    font-size: 1.18rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--tinta);
+    box-shadow: inset 0 -2px 0 var(--fio);
+    justify-self: start;
+    padding-bottom: 2px;
+  }
+  .rota__vocacao { font-size: 0.82rem; line-height: 1.45; color: rgba(18, 16, 12, 0.66); }
 </style>

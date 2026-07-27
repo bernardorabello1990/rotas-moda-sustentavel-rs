@@ -1,20 +1,30 @@
 ---
+import regioes from '../data/regioes.json';
 import { site } from '../data/site.ts';
+
+// contagem real, lida dos dados: nunca um número escrito à mão
+const territorios = String(regioes.length).padStart(2, '0');
 ---
 <section id="o-projeto" class="secao">
   <div class="container projeto revelar">
-    <div class="projeto__cabeca">
-      <span class="tag">O Projeto</span>
-      <h2 class="titulo-secao">A moda como campo cultural</h2>
-      <img
-        class="projeto__manequim"
-        src="/imagens/moda/manequim.webp"
-        width="388" height="950" loading="lazy"
-        alt="Manequim vestindo peças que representam os quatro territórios: jaqueta jeans de patchwork, tricô de lã terracota, cachecol de lã, saia de renda, bota de couro e máscara de carnaval."
-      />
+    <div class="projeto__tese">
+      <h2 class="titulo projeto__titulo">A moda como campo cultural</h2>
+
+      <!-- régua de índice: só dados verificáveis -->
+      <dl class="projeto__ficha">
+        <div class="projeto__linha">
+          <dt class="razao projeto__rotulo">Territórios em escuta</dt>
+          <dd class="projeto__valor">{territorios}</dd>
+        </div>
+        <div class="projeto__linha">
+          <dt class="razao projeto__rotulo">Recorte da pesquisa</dt>
+          <dd class="projeto__valor">RS</dd>
+        </div>
+      </dl>
     </div>
+
     <div class="projeto__texto">
-      <p>
+      <p class="projeto__lede">
         A moda raramente é tratada como campo cultural estruturado nas políticas públicas, apesar de sua
         relação profunda com identidade, território, memória, festas e saberes tradicionais. O
         <strong>Rotas da Moda Sustentável RS</strong> nasce para preencher essa lacuna.
@@ -31,37 +41,99 @@ import { site } from '../data/site.ts';
       <p class="projeto__edital">{site.creditoEdital}</p>
     </div>
   </div>
+
+  <!-- prancha editorial: o tear jacquard, que programa o desenho antes de tecer -->
+  <figure class="prancha revelar">
+    <img
+      src="/imagens/textura/tear-jacquard.webp"
+      alt="Urdume de fios índigo tensionados em um tear jacquard, atravessados por fios dourados, com um cartão perfurado apoiado nas linhas."
+      width="1376" height="768" loading="lazy" decoding="async"
+    />
+    <figcaption class="razao prancha__legenda">
+      No tear jacquard, o cartão perfurado programa o desenho antes de a trama existir
+    </figcaption>
+  </figure>
 </section>
 
 <style>
-  .projeto { display: grid; gap: 1.5rem; }
-  @media (min-width: 820px) {
-    .projeto { grid-template-columns: 1fr 1.4fr; gap: 4rem; }
+  .projeto { display: grid; gap: 2.8rem; }
+  @media (min-width: 900px) {
+    .projeto {
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: 2.6rem;
+      align-items: start;
+    }
   }
-  .projeto__manequim {
-    display: block;
+
+  .projeto__titulo {
+    font-size: clamp(2.1rem, 4.6vw, 3.8rem);
+    letter-spacing: 0.05em;
+    max-width: 13ch;
+    margin-bottom: 2.4rem;
+  }
+
+  /* ficha: valor à esquerda em monoespaçada, rótulo à direita */
+  .projeto__ficha { margin: 0; max-width: 22rem; }
+  .projeto__linha {
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: baseline;
+    padding-block: 0.85rem;
+    border-top: 1px dotted var(--urdume);
+  }
+  .projeto__linha:last-child { border-bottom: 1px dotted var(--urdume); }
+  .projeto__valor {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    font-family: var(--razao);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--ouro);
+    font-variant-numeric: tabular-nums;
+  }
+  .projeto__rotulo { grid-column: 2; grid-row: 1; margin: 0; color: var(--linho); }
+
+  /* o texto vive numa coluna estreita, separada por uma régua de urdume */
+  @media (min-width: 900px) {
+    .projeto__texto {
+      border-left: 1px solid var(--urdume);
+      padding-left: 2.6rem;
+    }
+  }
+  .projeto__texto p { max-width: 52ch; color: var(--linho); }
+  .projeto__texto p:last-child { margin-bottom: 0; }
+  .projeto__lede { font-size: 1.14rem; line-height: 1.6; }
+  .projeto__lede strong { font-weight: 500; color: var(--ouro); }
+
+  /* a prancha sangra de borda a borda: é a única imagem larga da página */
+  .prancha { margin: 4.5rem 0 0; }
+  @media (min-width: 900px) { .prancha { margin-top: 6rem; } }
+  .prancha img {
     width: 100%;
-    max-width: 300px;
     height: auto;
-    margin: 1.5rem auto 0;
-    position: relative;
-    z-index: 2;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
   }
-  /* no mobile o manequim fica bem menor e centralizado */
-  @media (max-width: 819px) {
-    .projeto__manequim { max-width: 180px; }
+  .prancha__legenda {
+    max-width: var(--largura);
+    margin: 0.9rem auto 0;
+    padding-inline: 1.5rem;
+    color: var(--linho-2);
   }
-  /* efeito de "atravessar a divisão" só no desktop */
-  @media (min-width: 820px) {
-    .projeto__manequim { margin-bottom: -140px; }
-  }
-  .projeto__texto p { color: var(--cor-texto-2); }
-  .projeto__texto strong { color: var(--cor-texto); }
+  @media (min-width: 900px) { .prancha__legenda { padding-inline: 3rem; } }
+
   .projeto__edital {
-    border-left: 2px dashed var(--cor-acento);
-    padding-left: 1rem;
-    font-size: 0.9rem;
-    color: var(--cor-texto-2);
-    margin-top: 1.5rem;
+    margin-top: 2.6rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--urdume);
+    font-family: var(--razao);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    color: var(--linho);
   }
 </style>

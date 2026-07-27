@@ -3,37 +3,66 @@ import { site } from '../data/site.ts';
 const ano = new Date().getFullYear();
 ---
 <footer class="rodape">
-  <div class="container">
-    <p class="rodape__edital">{site.creditoEdital}</p>
-    <!-- Selos/logos institucionais do edital entram aqui quando confirmados (pendência com a equipe) -->
-    <div class="rodape__linha">
-      <span>© {ano} {site.nome}</span>
-      <span>
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        {site.instagram && <> · <a href={site.instagram}>Instagram</a></>}
-      </span>
+  <div class="container rodape__grade">
+    <div>
+      <p class="rodape__marca">{site.nome}</p>
+      <p class="rodape__edital">{site.creditoEdital}</p>
     </div>
+    <div class="rodape__contato">
+      <p class="razao rodape__rotulo">Contato</p>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      {site.instagram && <a href={site.instagram}>Instagram</a>}
+    </div>
+  </div>
+  <div class="container rodape__base">
+    <p class="razao">© {ano} {site.nome}</p>
   </div>
 </footer>
 
 <style>
+  /* fecho da página: um passo mais escuro que o chão, fechado por régua de 1px */
   .rodape {
-    background: var(--cor-texto);
-    color: var(--cor-fundo-alt);
-    padding-block: 2.75rem;
-    font-size: 0.9rem;
-    /* Ourela: costura no topo do rodapé */
-    border-top: 2px dashed color-mix(in srgb, var(--cor-acento) 60%, transparent);
+    background: var(--indigo-fundo);
+    border-top: 1px solid var(--urdume);
+    padding-block: 3.5rem 2rem;
+    color: var(--linho-2);
+    font-size: 0.94rem;
   }
-  .rodape a { color: var(--cor-acento); text-decoration: none; }
-  .rodape a:hover { text-decoration: underline; }
-  .rodape__edital { margin-bottom: 1.6rem; max-width: 46rem; }
-  .rodape__linha {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem 1.5rem;
-    border-top: 1.5px dashed color-mix(in srgb, var(--cor-fundo) 24%, transparent);
-    padding-top: 1.3rem;
+
+  .rodape__grade { display: grid; gap: 2.6rem; }
+  @media (min-width: 900px) {
+    .rodape__grade { grid-template-columns: 1fr auto; gap: 4rem; align-items: start; }
   }
+
+  /* única aparição da display no rodapé: caixa alta, acima de 24px */
+  .rodape__marca {
+    font-family: var(--display);
+    font-size: clamp(1.55rem, 3vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ouro);
+    margin: 0 0 1.2rem;
+    max-width: 18ch;
+  }
+  .rodape__edital { margin: 0; max-width: 42ch; }
+
+  .rodape__contato { display: grid; gap: 0.4rem; justify-items: start; }
+  .rodape__rotulo { margin: 0 0 0.2rem; }
+  .rodape__contato a {
+    color: var(--ouro);
+    text-decoration: none;
+    border-bottom: 1px solid var(--urdume);
+  }
+  .rodape__contato a:hover {
+    color: var(--ouro-claro);
+    border-bottom-color: var(--ouro-claro);
+  }
+
+  .rodape__base {
+    margin-top: 3.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--urdume);
+  }
+  .rodape__base p { margin: 0; }
 </style>

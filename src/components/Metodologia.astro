@@ -9,14 +9,15 @@ const passos = [
 ---
 <section id="metodologia" class="secao metodologia">
   <div class="container">
-    <span class="tag">Metodologia</span>
-    <h2 class="titulo-secao">Uma jornada de escuta em cinco movimentos</h2>
-    <ol class="metodologia__lista">
+    <h2 class="titulo metodologia__titulo">Cinco movimentos de escuta</h2>
+
+    <!-- partitura de método: número real, movimento, procedimento -->
+    <ol class="metodo">
       {passos.map((p, i) => (
-        <li class="metodologia__passo revelar">
-          <span class="metodologia__numero">{i + 1}</span>
-          <h3>{p.titulo}</h3>
-          <p>{p.texto}</p>
+        <li class="metodo__mov revelar">
+          <span class="metodo__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="metodo__nome">{p.titulo}</h3>
+          <p class="metodo__texto">{p.texto}</p>
         </li>
       ))}
     </ol>
@@ -24,27 +25,59 @@ const passos = [
 </section>
 
 <style>
-  .metodologia { background: var(--cor-fundo-alt); }
-  .metodologia .tag { color: color-mix(in srgb, var(--cor-acao) 80%, var(--cor-texto)); }
-  .metodologia__lista {
-    list-style: none;
-    margin: 2.5rem 0 0;
-    padding: 0;
+  .metodologia { background: var(--indigo-fundo); }
+  .metodologia__titulo { max-width: 20ch; margin-bottom: 2.8rem; }
+
+  .metodo { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--urdume); }
+
+  .metodo__mov {
     display: grid;
-    gap: 2rem 1.5rem;
+    gap: 0.5rem 1.4rem;
+    padding-block: 1.7rem;
+    border-top: 1px solid var(--urdume);
   }
-  @media (min-width: 680px) { .metodologia__lista { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1000px) { .metodologia__lista { grid-template-columns: repeat(5, 1fr); } }
-  .metodologia__numero {
-    font-family: var(--fonte-titulo);
-    font-style: italic;
-    font-size: 2.1rem;
-    color: var(--cor-acao);
-    display: inline-block;
-    padding-bottom: 0.35rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-acao) 55%, transparent);
+  @media (min-width: 720px) {
+    .metodo__mov {
+      grid-template-columns: 3.6rem minmax(0, 1fr);
+      padding-block: 2rem;
+    }
+    .metodo__num { grid-column: 1; grid-row: 1 / span 2; }
+    .metodo__nome { grid-column: 2; grid-row: 1; }
+    .metodo__texto { grid-column: 2; grid-row: 2; }
   }
-  .metodologia__passo h3 { font-size: 1.25rem; }
-  .metodologia__passo p { font-size: 0.92rem; color: var(--cor-texto-2); margin: 0; }
+  @media (min-width: 1080px) {
+    .metodo__mov {
+      grid-template-columns: 4.5rem minmax(0, 15rem) minmax(0, 1fr);
+      gap: 2.2rem;
+      align-items: start;
+    }
+    .metodo__num { grid-row: 1; }
+    .metodo__texto { grid-column: 3; grid-row: 1; }
+  }
+
+  .metodo__num {
+    font-family: var(--razao);
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    color: var(--ouro);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metodo__nome {
+    font-size: clamp(1.55rem, 2.2vw, 1.85rem);
+    line-height: 1.14;
+    letter-spacing: 0.07em;
+    color: var(--linho);
+    margin: 0;
+  }
+
+  .metodo__texto {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--linho);
+  }
 </style>

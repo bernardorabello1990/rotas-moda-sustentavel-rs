@@ -1,140 +1,152 @@
-/* Identidade "Barro & Linho" — ver spec 2026-07-22 */
+/* Mundo "brocado jacquard" — ver DESIGN.md para o contrato de direção.
+   Seda índigo como chão, trama dourada como único acento, cartão perfurado em linho. */
 :root {
-  --cor-fundo: #EDE3D4;
-  --cor-fundo-alt: #E2D5C0;
-  --cor-texto: #3E2F23;
-  --cor-texto-2: #6B5844;
-  --cor-acao: #9C4A2F;
-  --cor-acento: #C9A227;
-  --cor-apoio: #7A6A53;
-  --fonte-titulo: 'Cormorant Garamond', Georgia, serif;
-  --fonte-texto: 'Karla', system-ui, sans-serif;
-  --largura-max: 1100px;
-  --linha: color-mix(in srgb, var(--cor-texto) 16%, transparent);
+  --indigo: #141F35;
+  --indigo-fundo: #0E1626;
+  --urdume: #1F2B44;
+  --ouro: #C9A227;
+  --ouro-claro: #E0C05A;
+  --linho: #E8E0CE;
+  --linho-2: #B9AF9A;
+  --tinta: #12100C;
+
+  /* fios de território: marcas pequenas, nunca área */
+  --fio-serra: #C2603A;
+  --fio-sinos: #8B9A5B;
+  --fio-campanha: #C9A227;
+  --fio-poa: #7796B8;
+
+  /* anel de foco: nunca a cor de acento sobre superfície da mesma cor */
+  --foco: var(--ouro-claro);
+
+  --display: 'Italiana', 'Optima', serif;
+  --corpo: 'Archivo', system-ui, sans-serif;
+  --razao: 'JetBrains Mono', ui-monospace, monospace;
+
+  --largura: 1440px;
+  --medida: 66ch;
 }
 
 * { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-}
+/* o cabeçalho é fixo: a âncora precisa parar abaixo dele */
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   margin: 0;
-  color: var(--cor-texto);
-  font-family: var(--fonte-texto);
-  font-size: 1.06rem;
-  line-height: 1.68;
+  background: var(--indigo);
+  color: var(--linho);
+  font-family: var(--corpo);
+  font-size: 1.02rem;
+  font-weight: 300;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  /* Trama de linho: fios finos cruzados, muito sutis */
-  background-color: var(--cor-fundo);
-  background-image:
-    repeating-linear-gradient(90deg, rgba(122, 106, 83, 0.045) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(0deg, rgba(122, 106, 83, 0.035) 0 1px, transparent 1px 4px);
 }
+
+/* trama de urdume: fios verticais quase imperceptíveis sob todo o índigo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(232, 224, 206, 0.028) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(232, 224, 206, 0.018) 0 1px, transparent 1px 4px);
+}
+body > * { position: relative; z-index: 1; }
 
 h1, h2, h3 {
-  font-family: var(--fonte-titulo);
-  font-weight: 500;
-  line-height: 1.1;
-  margin: 0 0 0.5em;
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.02;
+  margin: 0 0 0.4em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   text-wrap: balance;
+  color: var(--ouro);
 }
 
-p { margin: 0 0 1em; text-wrap: pretty; }
-
-a { color: var(--cor-acao); }
-
+p { margin: 0 0 1.1em; max-width: var(--medida); text-wrap: pretty; }
+a { color: var(--ouro); }
 img { max-width: 100%; display: block; }
 
 .container {
-  max-width: var(--largura-max);
+  max-width: var(--largura);
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 900px) { .container { padding-inline: 3rem; } }
+
+.secao { padding-block: 5rem; border-top: 1px solid var(--urdume); }
+@media (min-width: 900px) { .secao { padding-block: 8rem; } }
+
+/* título tecido: um por seção, sem elemento decorativo */
+.titulo {
+  font-size: clamp(1.9rem, 3.4vw, 3.1rem);
 }
 
-.secao { padding-block: 3.25rem; }
-@media (min-width: 768px) {
-  .secao { padding-block: 6.5rem; }
-}
-
-/* Eyebrow com um "ponto" de costura à esquerda — motivo têxtil recorrente */
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
+/* razão monoespaçada: só onde carrega dado, número ou medida */
+.razao {
+  font-family: var(--razao);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cor-acao);
-  margin-bottom: 1.1rem;
-}
-.tag::before {
-  content: "";
-  width: 26px;
-  height: 0;
-  border-top: 1.5px dashed currentColor;
-  opacity: 0.7;
+  color: var(--linho-2);
 }
 
-.titulo-secao {
-  font-size: clamp(2rem, 4.4vw, 2.9rem);
-  letter-spacing: -0.005em;
-}
-
-.botao {
+/* ação de contorno: a única variante de botão do sistema */
+.acao {
   display: inline-block;
-  background: var(--cor-acao);
-  color: var(--cor-fundo);
-  padding: 0.82rem 1.8rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+  font-family: var(--razao);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ouro);
   text-decoration: none;
-  border: 1px solid var(--cor-acao);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  border: 1px solid var(--ouro);
+  padding: 0.95rem 2.1rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
-.botao:hover {
-  filter: brightness(1.06);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--cor-texto) 55%, transparent);
-}
+.acao:hover { background: var(--ouro); color: var(--indigo); }
 
-.botao--fantasma {
-  background: transparent;
-  color: var(--cor-texto);
-  border-color: color-mix(in srgb, var(--cor-texto) 45%, transparent);
+.acao--linho { color: var(--linho-2); border-color: var(--urdume); }
+.acao--linho:hover { background: transparent; color: var(--linho); border-color: var(--linho); }
+
+/* faixa de cartão perfurado: full-bleed, carrega informação real */
+.cartao {
+  background: var(--linho);
+  color: var(--tinta);
+  border-block: 1px solid rgba(18, 16, 12, 0.28);
 }
-.botao--fantasma:hover { border-color: var(--cor-texto); box-shadow: none; }
+.cartao .razao { color: rgba(18, 16, 12, 0.62); }
+.cartao a { color: var(--tinta); }
 
 .pular-link {
   position: absolute;
   left: -9999px;
-  background: var(--cor-texto);
-  color: var(--cor-fundo);
-  padding: 0.6rem 1rem;
+  background: var(--linho);
+  color: var(--tinta);
+  padding: 0.7rem 1.1rem;
+  font-family: var(--razao);
+  font-size: 0.75rem;
   z-index: 100;
 }
-.pular-link:focus { left: 0.5rem; top: 0.5rem; }
+.pular-link:focus { left: 0.75rem; top: 0.75rem; }
 
-:focus-visible {
-  outline: 2px solid var(--cor-acao);
-  outline-offset: 3px;
-}
+/* foco sempre medido contra o fundo REAL da seção */
+:focus-visible { outline: 2px solid var(--foco); outline-offset: 3px; }
+.cartao :focus-visible { outline-color: var(--tinta); }
 
-/* Revelação suave ao rolar — só ativa quando há JS (fallback: visível) */
+/* revelação: um movimento autorado, entrada única e suave */
 html.js .revelar {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(14px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
-html.js .revelar.visivel {
-  opacity: 1;
-  transform: none;
-}
+html.js .revelar.visivel { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html.js .revelar { opacity: 1; transform: none; transition: none; }
 }

@@ -1,115 +1,110 @@
 ---
 import episodios from '../data/episodios.json';
-import regioes from '../data/regioes.json';
 import { site } from '../data/site.ts';
 import type { Episodio } from '../data/tipos.ts';
 
 const lista = episodios as Episodio[];
+const vazio = lista.length === 0;
 const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da Moda Sustentável RS');
 ---
 <section id="podcast" class="secao podcast">
-  <div class="container podcast__grade">
-    <div class="podcast__conteudo">
-    <span class="tag">Podcast</span>
-    <h2 class="titulo-secao">As vozes dos territórios</h2>
+  <div class="container podcast__declaracao revelar">
+    <h2 class="titulo">As vozes dos territórios</h2>
+    <p class="podcast__chamada">
+      As entrevistas da pesquisa darão origem a um podcast autoral, com um episódio dedicado a cada
+      região e os próprios agentes territoriais como protagonistas.
+    </p>
+  </div>
 
-    {lista.length === 0 ? (
-      <div class="podcast__embreve revelar">
-        <p class="podcast__chamada">
-          As entrevistas da pesquisa darão origem a um podcast autoral, com um episódio dedicado a cada
-          região e os próprios agentes territoriais como protagonistas.
-        </p>
-        <ul class="podcast__previa">
-          {regioes.map((r, i) => (
-            <li>
-              <span class="podcast__num">EP {i + 1}</span>
-              <span>{r.nome}</span>
-              <span class="podcast__breve">em breve</span>
-            </li>
-          ))}
-        </ul>
-        <div class="podcast__cta">
-          <a class="botao" href={`mailto:${site.email}?subject=${assunto}`}>Quero ser avisado da estreia</a>
+  <!-- sem episódios: faixa de cartão perfurado com a ficha real, nunca um player simulado -->
+  {vazio ? (
+    <Fragment>
+      <div class="cartao podcast__ficha">
+        <div class="container">
+          <dl class="ficha">
+            <div class="ficha__campo">
+              <dt class="razao">Formato</dt>
+              <dd>Podcast autoral, um episódio por território</dd>
+            </div>
+            <div class="ficha__campo">
+              <dt class="razao">Vozes</dt>
+              <dd>Os próprios agentes ouvidos na escuta de campo</dd>
+            </div>
+            <div class="ficha__campo">
+              <dt class="razao">Estado</dt>
+              <dd>Em produção, nenhum episódio publicado</dd>
+            </div>
+          </dl>
         </div>
       </div>
-    ) : (
-      <div class="podcast__lista">
-        {lista.map((ep) => (
-          <figure class="podcast__episodio">
-            <figcaption>{ep.titulo} · {ep.regiao}</figcaption>
-            <iframe
-              src={ep.spotifyEmbedUrl}
-              title={`Player do episódio ${ep.titulo}`}
-              width="100%"
-              height="152"
-              loading="lazy"
-              allow="encrypted-media"
-            ></iframe>
-          </figure>
-        ))}
+
+      <div class="container podcast__convite revelar">
+        <p class="podcast__nota">
+          Os episódios nascem das entrevistas em campo e entram nesta página assim que ficarem prontos.
+        </p>
+        <a class="acao" href={`mailto:${site.email}?subject=${assunto}`}>Quero ser avisado da estreia</a>
       </div>
-    )}
+    </Fragment>
+  ) : (
+    <div class="container podcast__lista revelar">
+      {lista.map((ep) => (
+        <figure class="podcast__episodio">
+          <figcaption class="podcast__caption">{ep.titulo} · {ep.regiao}</figcaption>
+          <iframe
+            src={ep.spotifyEmbedUrl}
+            title={`Player do episódio ${ep.titulo}`}
+            width="100%"
+            height="152"
+            loading="lazy"
+            allow="encrypted-media"
+          ></iframe>
+        </figure>
+      ))}
     </div>
-    <div class="podcast__ilustra" aria-hidden="true">
-      <img
-        src="/imagens/regioes/bastidor.webp"
-        width="760" height="847" loading="lazy"
-        alt="Bastidor de bordado com um raminho de folhas nas cores das quatro regiões, agulha e linha."
-      />
-    </div>
-  </div>
+  )}
 </section>
 
 <style>
-  .podcast { background: var(--cor-texto); color: var(--cor-fundo); }
-  .podcast .tag { color: var(--cor-acento); }
-  .podcast__grade { display: grid; gap: 2.5rem; align-items: center; }
-  @media (min-width: 900px) {
-    .podcast__grade { grid-template-columns: 1.5fr 1fr; gap: 3.5rem; }
+  /* superfície recuada: a seção do podcast desce um passo do chão de página */
+  .podcast { background: var(--indigo-fundo); }
+
+  .podcast__declaracao { margin-bottom: 3rem; }
+  .podcast__chamada {
+    margin: 0;
+    font-size: 1.12rem;
+    color: var(--linho);
+    max-width: 40rem;
   }
-  .podcast__ilustra { max-width: 330px; margin-inline: auto; width: 100%; }
-  .podcast__ilustra img { width: 100%; height: auto; }
-  @media (max-width: 899px) { .podcast__ilustra { display: none; } }
-  .podcast__chamada { max-width: 38rem; color: var(--cor-fundo-alt); }
-  .podcast__previa {
-    list-style: none;
-    margin: 2rem 0;
-    padding: 0;
-    display: grid;
-    gap: 0.6rem;
-    max-width: 34rem;
+
+  .podcast__ficha { padding-block: 1.7rem; }
+  .ficha { margin: 0; display: grid; gap: 1.2rem; }
+  @media (min-width: 820px) {
+    .ficha { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; }
   }
-  .podcast__previa li {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    border-bottom: 1.5px dashed color-mix(in srgb, var(--cor-fundo) 26%, transparent);
-    padding-bottom: 0.7rem;
-    font-family: var(--fonte-titulo);
-    font-size: 1.3rem;
+  .ficha__campo {
+    padding-top: 0.6rem;
+    border-top: 1px dotted rgba(18, 16, 12, 0.35);
   }
-  .podcast__num {
-    font-family: var(--fonte-texto);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--cor-acento);
-    white-space: nowrap;
+  .ficha dt { margin-bottom: 0.35rem; }
+  .ficha dd {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--tinta);
+    max-width: 28ch;
   }
-  .podcast__breve {
-    margin-left: auto;
-    font-family: var(--fonte-texto);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.7;
-    white-space: nowrap;
-  }
-  .podcast__cta {
-    max-width: 34rem;
-    text-align: center;
-    margin-top: 0.4rem;
-  }
-  .podcast__lista { display: grid; gap: 1.5rem; margin-top: 2rem; }
+
+  .podcast__convite { margin-top: 3rem; }
+  .podcast__nota { color: var(--linho); max-width: 34rem; margin-bottom: 1.8rem; }
+
+  .podcast__lista { display: grid; gap: 2rem; }
   .podcast__episodio { margin: 0; }
-  .podcast__episodio figcaption { margin-bottom: 0.5rem; font-family: var(--fonte-titulo); font-size: 1.15rem; }
+  .podcast__caption {
+    margin-bottom: 0.7rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--linho);
+  }
 </style>

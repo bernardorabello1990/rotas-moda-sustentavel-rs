@@ -1,101 +1,184 @@
 ---
 import { site } from '../data/site.ts';
 const assunto = encodeURIComponent('Parceria com o Rotas da Moda Sustentável RS');
+const escrever = `mailto:${site.email}?subject=${assunto}`;
 ---
-<section id="contato" class="secao parceria">
+<section id="contato" class="secao cartao parceria">
   <div class="container parceria__grade revelar">
-    <div>
-      <span class="tag">Seja parceiro</span>
-      <h2 class="titulo-secao">Vamos tecer essa rota <em>juntos?</em></h2>
-      <p class="parceria__texto">
-        O Rotas da Moda Sustentável RS está construindo a primeira base pública sobre a moda sustentável
-        gaúcha e busca parceiros institucionais, apoiadores e veículos de imprensa para ampliar o
-        alcance e o impacto desta pesquisa.
+    <div class="parceria__abertura">
+      <h2 class="titulo parceria__titulo">Entre nesta rota</h2>
+      <p class="parceria__lead">
+        O Rotas da Moda Sustentável RS está construindo a primeira base pública sobre a moda
+        sustentável gaúcha e busca parceiros institucionais, apoiadores e veículos de imprensa
+        para ampliar o alcance e o impacto desta pesquisa.
       </p>
-      <p class="parceria__texto">
-        Se você representa o poder público, uma organização, uma marca ou a imprensa, escreva para nós.
+      <p class="parceria__lead">
+        Se você representa uma marca, uma organização, o poder público ou a imprensa, a conversa
+        começa por aqui.
       </p>
     </div>
-    <div class="parceria__acao">
+
+    <div class="parceria__convite">
       {site.formEndpoint ? (
         <form action={site.formEndpoint} method="POST" class="formulario">
+          <p class="razao parceria__rotulo">Fale com a equipe</p>
           <label>Nome<input type="text" name="nome" required /></label>
           <label>Organização<input type="text" name="organizacao" /></label>
           <label>E-mail<input type="email" name="email" required /></label>
           <label>Mensagem<textarea name="mensagem" rows="4" required></textarea></label>
-          <button class="botao parceria__botao" type="submit">Enviar mensagem</button>
+          <button class="acao" type="submit">Enviar mensagem</button>
         </form>
       ) : (
-        <div class="parceria__mailto">
-          <p class="parceria__rotulo">Fale com a equipe</p>
-          <a class="parceria__email" href={`mailto:${site.email}?subject=${assunto}`}>{site.email}</a>
-          <a class="botao parceria__botao" href={`mailto:${site.email}?subject=${assunto}`}>Escrever agora</a>
-          <p class="parceria__news">
+        <div>
+          <p class="razao parceria__rotulo">Fale com a equipe</p>
+          <a class="parceria__email" href={escrever}>{site.email}</a>
+          <a class="acao" href={escrever}>Escrever para a equipe</a>
+          <p class="parceria__nota">
             Prefere só acompanhar? Peça neste mesmo e-mail para entrar na lista de novidades.
           </p>
         </div>
       )}
     </div>
+
+    <div class="parceria__oferta">
+      <h3 class="parceria__subtitulo">O que uma marca encontra aqui</h3>
+      <ol class="parceria__lista">
+        <li class="parceria__item">
+          <span class="razao parceria__num">01</span>
+          <div>
+            <p class="parceria__item-titulo">Pesquisa de campo, não curadoria</p>
+            <p class="parceria__item-texto">
+              Escuta direta dos agentes em quatro territórios gaúchos, em cinco movimentos:
+              exploração documental, mapeamento de agentes, escuta em campo, análise e devolução
+              pública.
+            </p>
+          </div>
+        </li>
+        <li class="parceria__item">
+          <span class="razao parceria__num">02</span>
+          <div>
+            <p class="parceria__item-titulo">Entregas públicas para acompanhar</p>
+            <p class="parceria__item-texto">
+              Um podcast com um episódio por região, esta base de conhecimento aberta e um evento
+              de lançamento em Porto Alegre.
+            </p>
+          </div>
+        </li>
+        <li class="parceria__item">
+          <span class="razao parceria__num">03</span>
+          <div>
+            <p class="parceria__item-titulo">Projeto de fomento público</p>
+            <p class="parceria__item-texto">
+              Contemplado em edital público de fomento à cultura e conduzido por três
+              pesquisadoras das áreas de economia criativa, moda e produção cultural.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>
 
 <style>
-  .parceria { background: var(--cor-acao); color: var(--cor-fundo); }
-  .parceria .tag { color: var(--cor-fundo); }
-  .parceria__texto { color: var(--cor-fundo); max-width: 30rem; }
-  .parceria__grade { display: grid; gap: 2.5rem; align-items: center; }
-  @media (min-width: 820px) { .parceria__grade { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+  /* faixa de linho full-bleed: inverte o ritmo do índigo no momento da ação */
+  .parceria__grade { display: grid; gap: 2.75rem; }
+  @media (min-width: 900px) {
+    .parceria__grade {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      column-gap: 4rem;
+      row-gap: 3.5rem;
+      align-items: start;
+    }
+    .parceria__abertura { grid-column: 1; grid-row: 1; }
+    .parceria__oferta { grid-column: 1; grid-row: 2; }
+    .parceria__convite { grid-column: 2; grid-row: 1 / span 2; }
+  }
 
-  .parceria__mailto {
-    background: color-mix(in srgb, var(--cor-texto) 25%, var(--cor-acao));
-    border: 1.5px dashed color-mix(in srgb, var(--cor-fundo) 45%, transparent);
-    border-radius: 14px;
-    padding: 2.4rem 2.2rem;
-    text-align: center;
+  /* sobre linho, o título perde o ouro e vira tinta */
+  .parceria__titulo { color: var(--tinta); }
+  .parceria__lead { color: var(--tinta); max-width: 34rem; }
+  .parceria__lead:last-child { margin-bottom: 0; }
+
+  /* painel de contato: caminho único, régua de 1px, sem sombra */
+  .parceria__convite {
+    border: 1px solid rgba(18, 16, 12, 0.28);
+    padding: 2rem 1.9rem;
   }
-  .parceria__rotulo {
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0.9;
-    margin-bottom: 0.4rem;
-  }
+  .parceria__rotulo { margin: 0 0 0.9rem; }
   .parceria__email {
     display: block;
-    font-family: var(--fonte-titulo);
-    font-size: clamp(1.3rem, 3vw, 1.7rem);
-    color: var(--cor-fundo);
+    font-family: var(--razao);
+    font-size: clamp(0.95rem, 2.2vw, 1.12rem);
+    letter-spacing: 0.02em;
     text-decoration: none;
-    margin-bottom: 1.5rem;
-    word-break: break-all;
+    border-bottom: 1px solid rgba(18, 16, 12, 0.35);
+    padding-bottom: 0.35rem;
+    margin-bottom: 1.8rem;
+    overflow-wrap: break-word;
   }
-  .parceria__botao {
-    background: var(--cor-fundo);
-    color: var(--cor-acao);
-    border-color: var(--cor-fundo);
-    font-weight: 600;
-  }
-  .parceria__news {
-    font-size: 0.82rem;
-    opacity: 0.9;
-    margin: 1rem 0 0;
+  .parceria__email:hover { border-bottom-color: var(--tinta); }
+  .parceria__nota {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(18, 16, 12, 0.72);
+    margin: 1.5rem 0 0;
   }
 
-  .formulario { display: grid; gap: 1rem; }
+  /* a ação inverte para contorno de tinta sobre a faixa de linho */
+  .parceria .acao {
+    color: var(--tinta);
+    border-color: var(--tinta);
+    background: transparent;
+  }
+  .parceria .acao:hover { background: var(--tinta); color: var(--linho); }
+
+  /* régua de índice: número monoespaçado e separador pontilhado */
+  .parceria__subtitulo {
+    color: var(--tinta);
+    font-size: 1.5rem;
+    letter-spacing: 0.09em;
+    margin-bottom: 1.6rem;
+  }
+  .parceria__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.4rem; }
+  .parceria__item {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.6rem;
+    border-top: 1px dotted rgba(18, 16, 12, 0.35);
+    padding-top: 0.85rem;
+  }
+  .parceria__num { margin: 0; padding-top: 0.2rem; }
+  .parceria__item-titulo {
+    color: var(--tinta);
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .parceria__item-texto {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: rgba(18, 16, 12, 0.72);
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  .formulario { display: grid; gap: 1.1rem; }
   .formulario label {
     display: grid;
-    gap: 0.3rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
+    gap: 0.35rem;
+    font-family: var(--razao);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(18, 16, 12, 0.62);
   }
   .formulario input,
   .formulario textarea {
-    background: var(--cor-fundo);
-    border: none;
-    border-radius: 8px;
-    padding: 0.7rem 0.9rem;
-    font-family: var(--fonte-texto);
+    background: transparent;
+    border: 1px solid rgba(18, 16, 12, 0.35);
+    padding: 0.7rem 0.8rem;
+    font-family: var(--corpo);
     font-size: 1rem;
-    color: var(--cor-texto);
+    color: var(--tinta);
   }
+  .formulario button { justify-self: start; cursor: pointer; }
 </style>
