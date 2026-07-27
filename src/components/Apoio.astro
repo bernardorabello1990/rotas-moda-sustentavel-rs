@@ -35,40 +35,53 @@
     /* branco literal por exigência legal: as marcas oficiais não vão para fundo escuro */
     background: #ffffff;
     color: var(--tinta);
-    border-block: 1px solid color-mix(in srgb, var(--tinta) 28%, transparent);
-    padding-block: 1.7rem;
+    border-top: 1px solid color-mix(in srgb, var(--tinta) 28%, transparent);
+    /* fecha o hero: precisa ser uma tira enxuta para caber na primeira tela */
+    padding-block: 0.8rem;
   }
 
   /* rótulo de campo em mono, medido contra o branco real desta faixa */
   .apoio__rotulo {
-    margin: 0 0 1rem;
+    margin: 0 0 0.55rem;
     color: var(--tinta);
+  }
+
+  /* no desktop o rótulo vai para a lateral, poupando altura */
+  @media (min-width: 900px) {
+    .apoio .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+    }
+    .apoio__rotulo { margin: 0; white-space: nowrap; }
   }
 
   /* anel de foco nunca em ouro sobre branco */
   .apoio :focus-visible { outline-color: var(--tinta); }
 
-  /* mobile: as duas peças empilham e cada uma usa a largura inteira, o que
-     dobra a altura útil dos logos sem rolagem lateral */
+  /* uma fileira só em qualquer largura: as duas peças remontam a arte original
+     lado a lado, sem quebra de linha. No mobile isso vira uma tira fina. */
   .apoio__faixa {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1.3rem;
+    justify-content: center;
+    max-width: 1024px;
+    margin-inline: auto;
   }
-  .apoio__peca { width: 100%; height: auto; object-fit: contain; }
+  .apoio__peca { height: auto; object-fit: contain; object-position: center; }
+  .apoio__peca--a { width: 63.8%; }
+  .apoio__peca--b { width: 36.2%; }
 
-  /* desktop: as duas voltam a ser uma linha só, na proporção original */
-  @media (min-width: 760px) {
+  /* desktop: teto de altura para caber na primeira tela, e o conjunto de marcas
+     agrupado à direita em vez de espalhado pela largura da faixa.
+     Precisa vir depois da regra base, que também define margin-inline. */
+  @media (min-width: 900px) {
+    .apoio__peca { max-height: 58px; }
     .apoio__faixa {
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 0;
-      max-width: 1024px;
-      margin-inline: auto;
+      width: min(600px, 56%);
+      max-width: none;
+      margin-inline: auto 0;
     }
-    .apoio__peca--a { width: 63.8%; }
-    .apoio__peca--b { width: 36.2%; }
   }
 </style>

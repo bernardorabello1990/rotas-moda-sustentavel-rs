@@ -3,52 +3,50 @@ import { site } from '../data/site.ts';
 const ano = new Date().getFullYear();
 ---
 <footer class="rodape">
-  <div class="container rodape__grade">
-    <div>
-      <p class="rodape__marca">{site.nome}</p>
-      <p class="rodape__edital">{site.creditoEdital}</p>
-    </div>
-    <div class="rodape__contato">
-      <p class="razao rodape__rotulo">Contato</p>
+  <div class="container rodape__linha">
+    <p class="rodape__marca">{site.nome}</p>
+    <p class="rodape__contato">
+      <span class="razao rodape__rotulo">Contato</span>
       <a href={`mailto:${site.email}`}>{site.email}</a>
       {site.instagram && <a href={site.instagram}>Instagram</a>}
-    </div>
-  </div>
-  <div class="container rodape__base">
-    <p class="razao">© {ano} {site.nome}</p>
+    </p>
+    <p class="razao rodape__ano">© {ano}</p>
   </div>
 </footer>
 
 <style>
-  /* fecho da página: um passo mais escuro que o chão, fechado por régua de 1px */
+  /* fecho enxuto: uma linha só. O crédito do edital saiu daqui porque a faixa
+     institucional logo acima já carrega os logos oficiais. */
   .rodape {
     background: var(--indigo-fundo);
     border-top: 1px solid var(--urdume);
-    padding-block: 3.5rem 2rem;
+    padding-block: 1.6rem;
     color: var(--linho-2);
-    font-size: 0.94rem;
+    font-size: 0.9rem;
   }
 
-  .rodape__grade { display: grid; gap: 2.6rem; }
-  @media (min-width: 900px) {
-    .rodape__grade { grid-template-columns: 1fr auto; gap: 4rem; align-items: start; }
+  .rodape__linha {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.7rem 2.5rem;
   }
+  .rodape__linha p { margin: 0; max-width: none; }
 
-  /* única aparição da display no rodapé: caixa alta, acima de 24px */
   .rodape__marca {
-    font-family: var(--display);
-    font-size: clamp(1.55rem, 3vw, 2rem);
-    line-height: 1.1;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--ouro);
-    margin: 0 0 1.2rem;
-    max-width: 18ch;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--linho);
   }
-  .rodape__edital { margin: 0; max-width: 42ch; }
 
-  .rodape__contato { display: grid; gap: 0.4rem; justify-items: start; }
-  .rodape__rotulo { margin: 0 0 0.2rem; }
+  .rodape__contato {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 1.1rem;
+  }
+  .rodape__rotulo { color: var(--linho-2); }
   .rodape__contato a {
     color: var(--ouro);
     text-decoration: none;
@@ -59,10 +57,5 @@ const ano = new Date().getFullYear();
     border-bottom-color: var(--ouro-claro);
   }
 
-  .rodape__base {
-    margin-top: 3.2rem;
-    padding-top: 1.2rem;
-    border-top: 1px solid var(--urdume);
-  }
-  .rodape__base p { margin: 0; }
+  .rodape__ano { color: var(--linho-2); }
 </style>

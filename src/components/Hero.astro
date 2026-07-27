@@ -1,29 +1,14 @@
 ---
-import regioes from '../data/regioes.json';
 import { site } from '../data/site.ts';
-
-const fio: Record<string, string> = {
-  serra: 'var(--fio-serra)',
-  sinos: 'var(--fio-sinos)',
-  campanha: 'var(--fio-campanha)',
-  metropolitana: 'var(--fio-poa)',
-};
-const curto: Record<string, string> = {
-  serra: 'Serra Gaúcha',
-  sinos: 'Vale dos Sinos',
-  campanha: 'Campanha',
-  metropolitana: 'Porto Alegre',
-};
-const ordem = ['serra', 'sinos', 'campanha', 'metropolitana'];
+import Apoio from './Apoio.astro';
 ---
 <section id="hero" class="heroi">
   <!-- brocado full-bleed: a trama cresce da esquerda escura para a direita dourada -->
   <picture class="heroi__brocado">
-    <source media="(min-width: 760px)" srcset="/imagens/textura/brocado-hero.webp" />
     <img
-      src="/imagens/textura/brocado-hero-mobile.webp"
-      width="1920" height="1072" fetchpriority="high" decoding="async"
-      alt="Brocado jacquard: seda índigo com trama de fios dourados formando um motivo têxtil ornamentado."
+      src="/imagens/textura/tear-jacquard.webp"
+      width="1376" height="768" fetchpriority="high" decoding="async"
+      alt="Tecelagem: um pano de urdume índigo com listras douradas saindo de um tear jacquard, com um cartão perfurado apoiado sobre ele e o interior da fábrica ao fundo."
     />
   </picture>
 
@@ -37,31 +22,27 @@ const ordem = ['serra', 'sinos', 'campanha', 'metropolitana'];
         <a class="acao" href="#contato">Apoiar o projeto</a>
         <a class="acao acao--linho" href="#o-projeto">Ver a pesquisa</a>
       </div>
+      <!-- convite para a experiência imersiva: ainda sem versão 9:16, só no desktop -->
+      <a class="razao heroi__voo" href="/voo/" title="Experiência imersiva, melhor em tela grande">
+        Sobrevoe as rotas <span>experiência imersiva</span>
+      </a>
     </div>
   </div>
 
-  <!-- faixa de cartão perfurado: os quatro territórios como instrução numerada -->
-  <div class="cartao rota">
-    <div class="container rota__grade">
-      <p class="razao rota__legenda">A rota <span>4 territórios</span></p>
-      <ol class="rota__lista">
-        {ordem.map((id, i) => {
-          const r = regioes.find((x) => x.id === id);
-          return (
-            <li class="rota__item">
-              <span class="razao rota__num">{String(i + 1).padStart(2, '0')}</span>
-              <span class="rota__nome" style={`--fio:${fio[id]}`}>{curto[id]}</span>
-              <span class="rota__vocacao">{r?.vocacao}</span>
-            </li>
-          );
-        })}
-      </ol>
-    </div>
-  </div>
+  <!-- a faixa institucional fecha o hero: os apoiadores oficiais na primeira vista -->
+  <Apoio />
 </section>
 
 <style>
-  .heroi { position: relative; isolation: isolate; }
+  /* o hero ocupa a tela inteira e a faixa institucional encosta no pé dela,
+     de modo que nenhuma nesga da seção seguinte apareça na primeira vista */
+  .heroi {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
 
   /* o brocado ocupa o viewport de borda a borda, atrás do texto */
   /* z-index -2: o véu (::before, em -1) tem de pintar POR CIMA da imagem.
@@ -71,10 +52,9 @@ const ordem = ['serra', 'sinos', 'campanha', 'metropolitana'];
      deixa só o denim escuro sob a coluna de texto. Continua sangrando nas bordas. */
   .heroi__brocado { overflow: hidden; }
   .heroi__brocado img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
-  @media (min-width: 900px) {
-    /* zoom: aproxima a trama e joga o ouro para a direita, abrindo área de
-       índigo à esquerda, onde o texto pousa */
-    .heroi__brocado img { width: 162%; }
+  /* no mobile o recorte vai para a direita, onde estão o tear e o cartão perfurado */
+  @media (max-width: 899px) {
+    .heroi__brocado img { object-position: 78% center; }
   }
   .heroi::before {
     content: "";
@@ -91,17 +71,32 @@ const ordem = ['serra', 'sinos', 'campanha', 'metropolitana'];
       rgba(14, 22, 38, 0.1) 100%
     );
   }
+  /* no mobile o texto ocupa a largura toda e a foto está no recorte claro:
+     o véu deixa de ser lateral e passa a ser vertical */
+  @media (max-width: 899px) {
+    .heroi::before {
+      background: linear-gradient(
+        to bottom,
+        rgba(14, 22, 38, 0.9) 0%,
+        rgba(14, 22, 38, 0.84) 55%,
+        rgba(14, 22, 38, 0.62) 100%
+      );
+    }
+  }
 
   .heroi__conteudo {
+    flex: 1;
+    /* como item flex, o margin-inline:auto do .container venceria o esticamento
+       e jogaria a coluna de texto para o meio da tela */
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding-block: 5rem 5.5rem;
-    min-height: min(78vh, 660px);
+    padding-block: 5rem 1rem;
   }
   @media (min-width: 900px) {
-    .heroi__conteudo { padding-block: 7.5rem 7.5rem; min-height: min(82vh, 720px); }
+    .heroi__conteudo { padding-block: 6.5rem 1.5rem; }
   }
 
   /* a placa: tinta sólida, filete de ouro, ar generoso. Nunca uma caixinha. */
@@ -131,35 +126,22 @@ const ordem = ['serra', 'sinos', 'campanha', 'metropolitana'];
   }
   .heroi__acoes { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
-  /* faixa da rota */
-  .rota { padding-block: 1.7rem; }
-  .rota__grade { display: grid; gap: 1.3rem; }
-  @media (min-width: 900px) {
-    .rota__grade { grid-template-columns: auto 1fr; gap: 3.5rem; align-items: start; }
+  /* o convite ao /voo é um fio, não um terceiro botão: não disputa com a ação principal */
+  .heroi__voo {
+    display: inline-block;
+    margin-top: 1.9rem;
+    color: var(--ouro);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+    padding-bottom: 3px;
+    transition: color 0.25s ease, border-color 0.25s ease;
   }
-  .rota__legenda { margin: 0; white-space: nowrap; }
-  .rota__legenda span { display: block; color: rgba(18, 16, 12, 0.45); }
+  .heroi__voo span { color: var(--linho-2); }
+  .heroi__voo:hover { color: var(--ouro-claro); border-bottom-color: var(--ouro-claro); }
+  .heroi__voo:hover span { color: var(--linho); }
+  /* a experiência ainda não tem versão 9:16: não convidar quem não pode entrar */
+  @media (max-width: 859px), (hover: none) and (pointer: coarse) {
+    .heroi__voo { display: none; }
+  }
 
-  .rota__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem 2.2rem; }
-  @media (min-width: 640px) { .rota__lista { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1100px) { .rota__lista { grid-template-columns: repeat(4, 1fr); } }
-
-  .rota__item {
-    display: grid;
-    gap: 0.2rem;
-    padding-top: 0.6rem;
-    border-top: 1px dotted rgba(18, 16, 12, 0.35);
-  }
-  .rota__num { color: rgba(18, 16, 12, 0.5); }
-  .rota__nome {
-    font-family: var(--display);
-    font-size: 1.18rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--tinta);
-    box-shadow: inset 0 -2px 0 var(--fio);
-    justify-self: start;
-    padding-bottom: 2px;
-  }
-  .rota__vocacao { font-size: 0.82rem; line-height: 1.45; color: rgba(18, 16, 12, 0.66); }
 </style>

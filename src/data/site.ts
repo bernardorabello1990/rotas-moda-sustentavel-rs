@@ -8,8 +8,6 @@ export const site = {
   // Vazio = o site mostra apenas o e-mail (mailto) — comportamento correto, não é erro:
   formEndpoint: '',
   instagram: '', // preencher quando o perfil existir (URL completa)
-  // Ajustar com o nome oficial do edital quando confirmado com a equipe:
-  creditoEdital: 'Projeto contemplado em edital público de fomento à cultura.',
   // Endereço público real (canonical + Open Graph). Trocar por https://rotasdamodars.com.br
   // no dia em que o domínio for registrado — enquanto ele não existe, apontar para cá evita
   // card em branco quando o link é compartilhado no WhatsApp/Instagram.

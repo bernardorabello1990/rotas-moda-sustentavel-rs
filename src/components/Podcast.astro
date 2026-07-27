@@ -94,7 +94,14 @@ const assunto = encodeURIComponent('Quero ser avisado sobre o podcast Rotas da M
     max-width: 28ch;
   }
 
-  .podcast__convite { margin-top: 3rem; }
+  /* o convite é o único bloco centrado da página: fecha a seção como um chamado */
+  .podcast__convite {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
   .podcast__nota { color: var(--linho); max-width: 34rem; margin-bottom: 1.8rem; }
 
   .podcast__lista { display: grid; gap: 2rem; }

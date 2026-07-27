@@ -1,6 +1,5 @@
 ---
 import regioes from '../data/regioes.json';
-import { site } from '../data/site.ts';
 
 // contagem real, lida dos dados: nunca um número escrito à mão
 const territorios = String(regioes.length).padStart(2, '0');
@@ -38,21 +37,8 @@ const territorios = String(regioes.length).padStart(2, '0');
         O resultado será um diagnóstico cultural inédito e uma base pública de dados, contribuindo para o
         planejamento e o fortalecimento das políticas culturais e das indústrias criativas do estado.
       </p>
-      <p class="projeto__edital">{site.creditoEdital}</p>
     </div>
   </div>
-
-  <!-- prancha editorial: o tear jacquard, que programa o desenho antes de tecer -->
-  <figure class="prancha revelar">
-    <img
-      src="/imagens/textura/tear-jacquard.webp"
-      alt="Urdume de fios índigo tensionados em um tear jacquard, atravessados por fios dourados, com um cartão perfurado apoiado nas linhas."
-      width="1376" height="768" loading="lazy" decoding="async"
-    />
-    <figcaption class="razao prancha__legenda">
-      No tear jacquard, o cartão perfurado programa o desenho antes de a trama existir
-    </figcaption>
-  </figure>
 </section>
 
 <style>
@@ -109,31 +95,4 @@ const territorios = String(regioes.length).padStart(2, '0');
   .projeto__lede { font-size: 1.14rem; line-height: 1.6; }
   .projeto__lede strong { font-weight: 500; color: var(--ouro); }
 
-  /* a prancha sangra de borda a borda: é a única imagem larga da página */
-  .prancha { margin: 4.5rem 0 0; }
-  @media (min-width: 900px) { .prancha { margin-top: 6rem; } }
-  .prancha img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-  .prancha__legenda {
-    max-width: var(--largura);
-    margin: 0.9rem auto 0;
-    padding-inline: 1.5rem;
-    color: var(--linho-2);
-  }
-  @media (min-width: 900px) { .prancha__legenda { padding-inline: 3rem; } }
-
-  .projeto__edital {
-    margin-top: 2.6rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--urdume);
-    font-family: var(--razao);
-    font-size: 0.78rem;
-    line-height: 1.6;
-    letter-spacing: 0.02em;
-    color: var(--linho);
-  }
 </style>
